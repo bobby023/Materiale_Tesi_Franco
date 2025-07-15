@@ -17,7 +17,7 @@ Contiene materiali prodotti durante l'analisi del trade-off tra accuratezza, fai
   - `test_FOCF.yaml` — configurazione per il modello FOCF
   - `test_nfccf.yaml` — configurazione per il modello NFCF  
   - `test_originale.yaml` — configurazione di riferimento  
-  - `test_pfcn_dmf.yaml` — configurazione per il modello PFCN_DMF  
+  - `test_pfcn.yaml` — configurazione per il modello PFCN_DMF  
 
 - **log_results/**  
   Contiene i log degli esperimenti eseguiti, con metriche di accuratezza, fairness e tempi di esecuzione.
