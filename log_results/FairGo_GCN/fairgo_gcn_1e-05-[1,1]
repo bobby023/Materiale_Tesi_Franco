@@ -1,0 +1,278 @@
+Thu 05 Jun 2025 08:34:14 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = dataset/ml-1M
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 300
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+neg_sampling = {'uniform': 1}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0001
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'RS': [8, 1, 1]}, 'group_by': 'user', 'order': 'RO', 'mode': 'uni100'}
+repeatable = False
+metrics = ['NDCG', 'Recall', 'Hit', 'MRR', 'DifferentialFairness', 'GiniIndex', 'PopularityPercentage', 'ValueUnfairness', 'AbsoluteUnfairness', 'UnderUnfairness', 'OverUnfairness', 'NonParityUnfairness', 'ItemCoverage', 'ShannonEntropy']
+topk = [5, 10, 20, 50]
+valid_metric = NDCG@5
+valid_metric_bigger = True
+eval_batch_size = 8192
+metric_decimal_place = 4
+
+Dataset Hyper Parameters:
+LABEL_FIELD = label
+threshold = {'rating': 3.0}
+TIME_FIELD = timestamp
+load_col = {'inter': ['user_id', 'item_id', 'rating', 'timestamp'], 'user': ['user_id', 'gender']}
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+seq_len = None
+NEG_PREFIX = neg_
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [0,inf)
+item_inter_num_interval = [0,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = None
+
+Other Hyper Parameters: 
+wandb_project = recbole
+require_pow = False
+save_sst_embed = True
+sst_attr_list = ['gender']
+aggr_method = LBA
+vs_weights = [1, 1]
+embedding_size = 64
+n_layers = 2
+dis_hidden_size_list = [16, 8, 4]
+filter_hidden_size_list = [128, 64]
+activation = leakyrelu
+fair_weight = 1e-05
+gcn_n_layers = 2
+hidden_channels = 32
+gcn_dropout = 0.2
+gcn_act = relu
+pretrain_epochs = 100
+train_epoch_interval = 1
+popularity_ratio = 0.1
+MODEL_TYPE = ModelType.GENERAL
+fair_type = value
+fair_sensitive_attribute = gender
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+device = cuda
+train_neg_sample_args = {'strategy': 'by', 'by': 1, 'distribution': 'uniform', 'dynamic': 'none'}
+eval_neg_sample_args = {'strategy': 'by', 'by': 100, 'distribution': 'uniform'}
+
+
+Thu 05 Jun 2025 08:34:20 INFO  ml-1M
+The number of users: 6041
+Average actions of users: 165.5975165562914
+The number of items: 3707
+Average actions of items: 269.88909875876953
+The number of inters: 1000209
+The sparsity of the dataset: 95.53358229599758%
+Remain Fields: ['user_id', 'item_id', 'rating', 'timestamp', 'gender', 'label']
+Thu 05 Jun 2025 08:34:23 INFO  [Training]: train_batch_size = [2048] negative sampling: [{'uniform': 1}]
+Thu 05 Jun 2025 08:34:23 INFO  [Evaluation]: eval_batch_size = [8192] eval_args: [{'split': {'RS': [8, 1, 1]}, 'group_by': 'user', 'order': 'RO', 'mode': 'uni100'}]
+Thu 05 Jun 2025 08:34:28 INFO  FairGo_GCN(
+  (gcn): GCN(64, 64, num_layers=2)
+  (user_embedding_layer): Embedding(6041, 64, padding_idx=0)
+  (item_embedding_layer): Embedding(3707, 64, padding_idx=0)
+  (aggr_layer): Sequential(
+    (0): Linear(in_features=128, out_features=64, bias=True)
+    (1): LeakyReLU(negative_slope=0.01)
+    (2): Linear(in_features=64, out_features=64, bias=True)
+    (3): LeakyReLU(negative_slope=0.01)
+    (4): Linear(in_features=64, out_features=64, bias=True)
+  )
+  (bin_dis_fun): BCELoss()
+  (multi_dis_fun): CrossEntropyLoss()
+  (mse_loss_fun): MSELoss()
+  (sigmoid): Sigmoid()
+)
+Trainable parameters: 644640
+Thu 05 Jun 2025 08:34:28 INFO  Model Pretrain
+Thu 05 Jun 2025 08:35:13 INFO  epoch 0 training [time: 44.92s, train loss: 1568.2990]
+Thu 05 Jun 2025 08:44:41 INFO  epoch 0 evaluating [time: 568.50s, valid_score: 0.112100]
+Thu 05 Jun 2025 08:44:41 INFO  valid result: 
+ndcg@5 : 0.1121    ndcg@10 : 0.1264    ndcg@20 : 0.1482    ndcg@50 : 0.1913    recall@5 : 0.0711    recall@10 : 0.1214    recall@20 : 0.1917    recall@50 : 0.3285    hit@5 : 0.3712    hit@10 : 0.5424    hit@20 : 0.7199    hit@50 : 0.8897    mrr@5 : 0.2062    mrr@10 : 0.2291    mrr@20 : 0.2415    mrr@50 : 0.2472    Differential Fairness of sensitive attribute gender : 1.5008    giniindex@5 : 0.9888    giniindex@10 : 0.9793    giniindex@20 : 0.9602    giniindex@50 : 0.9043    popularitypercentage@5 : 0.7973    popularitypercentage@10 : 0.7323    popularitypercentage@20 : 0.6196    popularitypercentage@50 : 0.4592    Value Unfairness of sensitive attribute gender : 0.1312    Absolute Unfairness of sensitive attribute gender : 0.1189    Underestimation Unfairness of sensitive attribute gender : 0.0145    Overestimation Unfairness of sensitive attribute gender : 0.1166    NonParity Unfairness of sensitive attribute gender : 0.0069    itemcoverage@5 : 0.054    itemcoverage@10 : 0.0866    itemcoverage@20 : 0.1538    itemcoverage@50 : 0.3194    shannonentropy@5 : 0.0201    shannonentropy@10 : 0.0144    shannonentropy@20 : 0.0093    shannonentropy@50 : 0.0052
+Thu 05 Jun 2025 08:44:41 INFO  Saving current best: saved/FairGo_GCN-ml-1M-pretrain.pth
+Thu 05 Jun 2025 08:45:29 INFO  epoch 1 training [time: 47.74s, train loss: 917.5263]
+Thu 05 Jun 2025 08:54:57 INFO  epoch 1 evaluating [time: 568.26s, valid_score: 0.157500]
+Thu 05 Jun 2025 08:54:57 INFO  valid result: 
+ndcg@5 : 0.1575    ndcg@10 : 0.1638    ndcg@20 : 0.1818    ndcg@50 : 0.2197    recall@5 : 0.0899    recall@10 : 0.1427    recall@20 : 0.2156    recall@50 : 0.3398    hit@5 : 0.4757    hit@10 : 0.6417    hit@20 : 0.7758    hit@50 : 0.9033    mrr@5 : 0.2835    mrr@10 : 0.3057    mrr@20 : 0.3152    mrr@50 : 0.3195    Differential Fairness of sensitive attribute gender : 1.4996    giniindex@5 : 0.9885    giniindex@10 : 0.9789    giniindex@20 : 0.9599    giniindex@50 : 0.9036    popularitypercentage@5 : 0.929    popularitypercentage@10 : 0.8534    popularitypercentage@20 : 0.7274    popularitypercentage@50 : 0.5134    Value Unfairness of sensitive attribute gender : 0.131    Absolute Unfairness of sensitive attribute gender : 0.1183    Underestimation Unfairness of sensitive attribute gender : 0.0151    Overestimation Unfairness of sensitive attribute gender : 0.116    NonParity Unfairness of sensitive attribute gender : 0.0104    itemcoverage@5 : 0.0531    itemcoverage@10 : 0.0861    itemcoverage@20 : 0.1476    itemcoverage@50 : 0.3245    shannonentropy@5 : 0.0205    shannonentropy@10 : 0.0146    shannonentropy@20 : 0.0097    shannonentropy@50 : 0.0051
+Thu 05 Jun 2025 08:54:57 INFO  Saving current best: saved/FairGo_GCN-ml-1M-pretrain.pth
+Thu 05 Jun 2025 08:55:45 INFO  epoch 2 training [time: 47.56s, train loss: 907.1591]
+Thu 05 Jun 2025 09:05:13 INFO  epoch 2 evaluating [time: 568.24s, valid_score: 0.171900]
+Thu 05 Jun 2025 09:05:13 INFO  valid result: 
+ndcg@5 : 0.1719    ndcg@10 : 0.1772    ndcg@20 : 0.1937    ndcg@50 : 0.2293    recall@5 : 0.0968    recall@10 : 0.1531    recall@20 : 0.2229    recall@50 : 0.3438    hit@5 : 0.5121    hit@10 : 0.6712    hit@20 : 0.7934    hit@50 : 0.9098    mrr@5 : 0.305    mrr@10 : 0.3264    mrr@20 : 0.335    mrr@50 : 0.3389    Differential Fairness of sensitive attribute gender : 1.503    giniindex@5 : 0.9883    giniindex@10 : 0.9787    giniindex@20 : 0.9595    giniindex@50 : 0.9032    popularitypercentage@5 : 0.9505    popularitypercentage@10 : 0.8771    popularitypercentage@20 : 0.7524    popularitypercentage@50 : 0.5254    Value Unfairness of sensitive attribute gender : 0.1294    Absolute Unfairness of sensitive attribute gender : 0.1171    Underestimation Unfairness of sensitive attribute gender : 0.0141    Overestimation Unfairness of sensitive attribute gender : 0.1154    NonParity Unfairness of sensitive attribute gender : 0.0109    itemcoverage@5 : 0.0542    itemcoverage@10 : 0.089    itemcoverage@20 : 0.1481    itemcoverage@50 : 0.3218    shannonentropy@5 : 0.0202    shannonentropy@10 : 0.0141    shannonentropy@20 : 0.0097    shannonentropy@50 : 0.0052
+Thu 05 Jun 2025 09:05:13 INFO  Saving current best: saved/FairGo_GCN-ml-1M-pretrain.pth
+Thu 05 Jun 2025 09:06:01 INFO  epoch 3 training [time: 47.56s, train loss: 897.8859]
+Thu 05 Jun 2025 09:15:29 INFO  epoch 3 evaluating [time: 568.16s, valid_score: 0.159100]
+Thu 05 Jun 2025 09:15:29 INFO  valid result: 
+ndcg@5 : 0.1591    ndcg@10 : 0.1612    ndcg@20 : 0.1751    ndcg@50 : 0.2087    recall@5 : 0.0869    recall@10 : 0.1379    recall@20 : 0.2037    recall@50 : 0.3164    hit@5 : 0.4869    hit@10 : 0.6412    hit@20 : 0.7687    hit@50 : 0.8916    mrr@5 : 0.2837    mrr@10 : 0.3044    mrr@20 : 0.3134    mrr@50 : 0.3174    Differential Fairness of sensitive attribute gender : 1.5019    giniindex@5 : 0.9882    giniindex@10 : 0.9787    giniindex@20 : 0.9598    giniindex@50 : 0.9035    popularitypercentage@5 : 0.8654    popularitypercentage@10 : 0.7792    popularitypercentage@20 : 0.6599    popularitypercentage@50 : 0.4689    Value Unfairness of sensitive attribute gender : 0.1311    Absolute Unfairness of sensitive attribute gender : 0.1193    Underestimation Unfairness of sensitive attribute gender : 0.0146    Overestimation Unfairness of sensitive attribute gender : 0.1165    NonParity Unfairness of sensitive attribute gender : 0.0099    itemcoverage@5 : 0.0556    itemcoverage@10 : 0.0877    itemcoverage@20 : 0.1486    itemcoverage@50 : 0.3267    shannonentropy@5 : 0.0198    shannonentropy@10 : 0.0144    shannonentropy@20 : 0.0096    shannonentropy@50 : 0.0051
+Thu 05 Jun 2025 09:16:16 INFO  epoch 4 training [time: 47.36s, train loss: 889.5745]
+Thu 05 Jun 2025 09:25:45 INFO  epoch 4 evaluating [time: 568.42s, valid_score: 0.151900]
+Thu 05 Jun 2025 09:25:45 INFO  valid result: 
+ndcg@5 : 0.1519    ndcg@10 : 0.154    ndcg@20 : 0.1653    ndcg@50 : 0.1971    recall@5 : 0.0825    recall@10 : 0.1287    recall@20 : 0.1904    recall@50 : 0.2986    hit@5 : 0.4727    hit@10 : 0.6175    hit@20 : 0.7419    hit@50 : 0.8743    mrr@5 : 0.2704    mrr@10 : 0.2899    mrr@20 : 0.2987    mrr@50 : 0.303    Differential Fairness of sensitive attribute gender : 1.4993    giniindex@5 : 0.9882    giniindex@10 : 0.9786    giniindex@20 : 0.9596    giniindex@50 : 0.9035    popularitypercentage@5 : 0.8718    popularitypercentage@10 : 0.7714    popularitypercentage@20 : 0.6318    popularitypercentage@50 : 0.4465    Value Unfairness of sensitive attribute gender : 0.1312    Absolute Unfairness of sensitive attribute gender : 0.119    Underestimation Unfairness of sensitive attribute gender : 0.0157    Overestimation Unfairness of sensitive attribute gender : 0.1154    NonParity Unfairness of sensitive attribute gender : 0.0101    itemcoverage@5 : 0.055    itemcoverage@10 : 0.0896    itemcoverage@20 : 0.1521    itemcoverage@50 : 0.3229    shannonentropy@5 : 0.02    shannonentropy@10 : 0.0141    shannonentropy@20 : 0.0094    shannonentropy@50 : 0.0052
+Thu 05 Jun 2025 09:26:32 INFO  epoch 5 training [time: 47.05s, train loss: 882.3376]
+Thu 05 Jun 2025 09:36:00 INFO  epoch 5 evaluating [time: 568.51s, valid_score: 0.108200]
+Thu 05 Jun 2025 09:36:00 INFO  valid result: 
+ndcg@5 : 0.1082    ndcg@10 : 0.1134    ndcg@20 : 0.1258    ndcg@50 : 0.1552    recall@5 : 0.0584    recall@10 : 0.0967    recall@20 : 0.1507    recall@50 : 0.2513    hit@5 : 0.368    hit@10 : 0.5159    hit@20 : 0.6584    hit@50 : 0.8164    mrr@5 : 0.1963    mrr@10 : 0.2162    mrr@20 : 0.226    mrr@50 : 0.2312    Differential Fairness of sensitive attribute gender : 1.4964    giniindex@5 : 0.9881    giniindex@10 : 0.9786    giniindex@20 : 0.9599    giniindex@50 : 0.9037    popularitypercentage@5 : 0.6976    popularitypercentage@10 : 0.6206    popularitypercentage@20 : 0.5109    popularitypercentage@50 : 0.3582    Value Unfairness of sensitive attribute gender : 0.1326    Absolute Unfairness of sensitive attribute gender : 0.1183    Underestimation Unfairness of sensitive attribute gender : 0.0173    Overestimation Unfairness of sensitive attribute gender : 0.1153    NonParity Unfairness of sensitive attribute gender : 0.0133    itemcoverage@5 : 0.0537    itemcoverage@10 : 0.089    itemcoverage@20 : 0.154    itemcoverage@50 : 0.3323    shannonentropy@5 : 0.0205    shannonentropy@10 : 0.0141    shannonentropy@20 : 0.0093    shannonentropy@50 : 0.005
+Thu 05 Jun 2025 09:36:48 INFO  epoch 6 training [time: 47.44s, train loss: 875.8975]
+Thu 05 Jun 2025 09:46:16 INFO  epoch 6 evaluating [time: 568.41s, valid_score: 0.129300]
+Thu 05 Jun 2025 09:46:16 INFO  valid result: 
+ndcg@5 : 0.1293    ndcg@10 : 0.1348    ndcg@20 : 0.1474    ndcg@50 : 0.1789    recall@5 : 0.0714    recall@10 : 0.1156    recall@20 : 0.1734    recall@50 : 0.2809    hit@5 : 0.4212    hit@10 : 0.5786    hit@20 : 0.7106    hit@50 : 0.8579    mrr@5 : 0.2348    mrr@10 : 0.2559    mrr@20 : 0.2651    mrr@50 : 0.2699    Differential Fairness of sensitive attribute gender : 1.4977    giniindex@5 : 0.9881    giniindex@10 : 0.9785    giniindex@20 : 0.9596    giniindex@50 : 0.9035    popularitypercentage@5 : 0.7794    popularitypercentage@10 : 0.6926    popularitypercentage@20 : 0.5815    popularitypercentage@50 : 0.4144    Value Unfairness of sensitive attribute gender : 0.1308    Absolute Unfairness of sensitive attribute gender : 0.1176    Underestimation Unfairness of sensitive attribute gender : 0.0157    Overestimation Unfairness of sensitive attribute gender : 0.1151    NonParity Unfairness of sensitive attribute gender : 0.014    itemcoverage@5 : 0.0537    itemcoverage@10 : 0.0928    itemcoverage@20 : 0.1551    itemcoverage@50 : 0.3283    shannonentropy@5 : 0.0205    shannonentropy@10 : 0.0136    shannonentropy@20 : 0.0092    shannonentropy@50 : 0.0051
+Thu 05 Jun 2025 09:47:03 INFO  epoch 7 training [time: 46.82s, train loss: 871.0458]
+Thu 05 Jun 2025 09:56:31 INFO  epoch 7 evaluating [time: 568.18s, valid_score: 0.161900]
+Thu 05 Jun 2025 09:56:31 INFO  valid result: 
+ndcg@5 : 0.1619    ndcg@10 : 0.1643    ndcg@20 : 0.1767    ndcg@50 : 0.2107    recall@5 : 0.0879    recall@10 : 0.1377    recall@20 : 0.2019    recall@50 : 0.3146    hit@5 : 0.4925    hit@10 : 0.6412    hit@20 : 0.7647    hit@50 : 0.8873    mrr@5 : 0.2903    mrr@10 : 0.3101    mrr@20 : 0.3187    mrr@50 : 0.3228    Differential Fairness of sensitive attribute gender : 1.5005    giniindex@5 : 0.9882    giniindex@10 : 0.9785    giniindex@20 : 0.9595    giniindex@50 : 0.9029    popularitypercentage@5 : 0.9034    popularitypercentage@10 : 0.8148    popularitypercentage@20 : 0.689    popularitypercentage@50 : 0.4857    Value Unfairness of sensitive attribute gender : 0.1335    Absolute Unfairness of sensitive attribute gender : 0.1209    Underestimation Unfairness of sensitive attribute gender : 0.0149    Overestimation Unfairness of sensitive attribute gender : 0.1186    NonParity Unfairness of sensitive attribute gender : 0.0104    itemcoverage@5 : 0.0542    itemcoverage@10 : 0.0893    itemcoverage@20 : 0.1476    itemcoverage@50 : 0.3221    shannonentropy@5 : 0.0203    shannonentropy@10 : 0.0141    shannonentropy@20 : 0.0097    shannonentropy@50 : 0.0052
+Thu 05 Jun 2025 09:57:19 INFO  epoch 8 training [time: 47.50s, train loss: 867.1497]
+Thu 05 Jun 2025 10:06:48 INFO  epoch 8 evaluating [time: 569.30s, valid_score: 0.141000]
+Thu 05 Jun 2025 10:06:48 INFO  valid result: 
+ndcg@5 : 0.141    ndcg@10 : 0.1418    ndcg@20 : 0.1534    ndcg@50 : 0.186    recall@5 : 0.0714    recall@10 : 0.1152    recall@20 : 0.1756    recall@50 : 0.2865    hit@5 : 0.4472    hit@10 : 0.5894    hit@20 : 0.7172    hit@50 : 0.8626    mrr@5 : 0.2616    mrr@10 : 0.2807    mrr@20 : 0.2896    mrr@50 : 0.2944    Differential Fairness of sensitive attribute gender : 1.5008    giniindex@5 : 0.9879    giniindex@10 : 0.9784    giniindex@20 : 0.9594    giniindex@50 : 0.9031    popularitypercentage@5 : 0.8126    popularitypercentage@10 : 0.7145    popularitypercentage@20 : 0.5971    popularitypercentage@50 : 0.427    Value Unfairness of sensitive attribute gender : 0.1309    Absolute Unfairness of sensitive attribute gender : 0.1175    Underestimation Unfairness of sensitive attribute gender : 0.0177    Overestimation Unfairness of sensitive attribute gender : 0.1132    NonParity Unfairness of sensitive attribute gender : 0.0084    itemcoverage@5 : 0.0529    itemcoverage@10 : 0.0904    itemcoverage@20 : 0.1511    itemcoverage@50 : 0.3243    shannonentropy@5 : 0.0209    shannonentropy@10 : 0.014    shannonentropy@20 : 0.0095    shannonentropy@50 : 0.0051
+Thu 05 Jun 2025 10:07:35 INFO  epoch 9 training [time: 47.35s, train loss: 863.6594]
+Thu 05 Jun 2025 10:17:04 INFO  epoch 9 evaluating [time: 568.88s, valid_score: 0.130900]
+Thu 05 Jun 2025 10:17:04 INFO  valid result: 
+ndcg@5 : 0.1309    ndcg@10 : 0.1345    ndcg@20 : 0.1461    ndcg@50 : 0.177    recall@5 : 0.068    recall@10 : 0.1115    recall@20 : 0.1687    recall@50 : 0.2765    hit@5 : 0.4157    hit@10 : 0.5677    hit@20 : 0.7007    hit@50 : 0.8475    mrr@5 : 0.2412    mrr@10 : 0.2616    mrr@20 : 0.2708    mrr@50 : 0.2756    Differential Fairness of sensitive attribute gender : 1.5013    giniindex@5 : 0.988    giniindex@10 : 0.9784    giniindex@20 : 0.9593    giniindex@50 : 0.9027    popularitypercentage@5 : 0.8037    popularitypercentage@10 : 0.7021    popularitypercentage@20 : 0.5825    popularitypercentage@50 : 0.4092    Value Unfairness of sensitive attribute gender : 0.1331    Absolute Unfairness of sensitive attribute gender : 0.1195    Underestimation Unfairness of sensitive attribute gender : 0.0168    Overestimation Unfairness of sensitive attribute gender : 0.1163    NonParity Unfairness of sensitive attribute gender : 0.0101    itemcoverage@5 : 0.0558    itemcoverage@10 : 0.0888    itemcoverage@20 : 0.1546    itemcoverage@50 : 0.3267    shannonentropy@5 : 0.0198    shannonentropy@10 : 0.0142    shannonentropy@20 : 0.0093    shannonentropy@50 : 0.0051
+Thu 05 Jun 2025 10:17:51 INFO  epoch 10 training [time: 47.28s, train loss: 860.2989]
+Thu 05 Jun 2025 10:27:21 INFO  epoch 10 evaluating [time: 569.21s, valid_score: 0.123500]
+Thu 05 Jun 2025 10:27:21 INFO  valid result: 
+ndcg@5 : 0.1235    ndcg@10 : 0.1265    ndcg@20 : 0.1397    ndcg@50 : 0.1703    recall@5 : 0.0634    recall@10 : 0.1066    recall@20 : 0.1664    recall@50 : 0.2714    hit@5 : 0.4036    hit@10 : 0.5523    hit@20 : 0.6995    hit@50 : 0.8457    mrr@5 : 0.2309    mrr@10 : 0.2505    mrr@20 : 0.2607    mrr@50 : 0.2655    Differential Fairness of sensitive attribute gender : 1.4971    giniindex@5 : 0.9879    giniindex@10 : 0.9786    giniindex@20 : 0.9597    giniindex@50 : 0.9032    popularitypercentage@5 : 0.7468    popularitypercentage@10 : 0.6558    popularitypercentage@20 : 0.5486    popularitypercentage@50 : 0.3911    Value Unfairness of sensitive attribute gender : 0.1327    Absolute Unfairness of sensitive attribute gender : 0.1181    Underestimation Unfairness of sensitive attribute gender : 0.0178    Overestimation Unfairness of sensitive attribute gender : 0.1149    NonParity Unfairness of sensitive attribute gender : 0.0121    itemcoverage@5 : 0.0542    itemcoverage@10 : 0.0914    itemcoverage@20 : 0.1527    itemcoverage@50 : 0.3296    shannonentropy@5 : 0.0204    shannonentropy@10 : 0.0138    shannonentropy@20 : 0.0094    shannonentropy@50 : 0.0051
+Thu 05 Jun 2025 10:28:08 INFO  epoch 11 training [time: 47.28s, train loss: 859.0629]
+Thu 05 Jun 2025 10:37:37 INFO  epoch 11 evaluating [time: 568.79s, valid_score: 0.151100]
+Thu 05 Jun 2025 10:37:37 INFO  valid result: 
+ndcg@5 : 0.1511    ndcg@10 : 0.1563    ndcg@20 : 0.1703    ndcg@50 : 0.2059    recall@5 : 0.0844    recall@10 : 0.1329    recall@20 : 0.2009    recall@50 : 0.3169    hit@5 : 0.4657    hit@10 : 0.6238    hit@20 : 0.7545    hit@50 : 0.8856    mrr@5 : 0.2695    mrr@10 : 0.2909    mrr@20 : 0.3    mrr@50 : 0.3044    Differential Fairness of sensitive attribute gender : 1.5018    giniindex@5 : 0.988    giniindex@10 : 0.9783    giniindex@20 : 0.9594    giniindex@50 : 0.903    popularitypercentage@5 : 0.8731    popularitypercentage@10 : 0.7786    popularitypercentage@20 : 0.6479    popularitypercentage@50 : 0.4661    Value Unfairness of sensitive attribute gender : 0.1311    Absolute Unfairness of sensitive attribute gender : 0.1192    Underestimation Unfairness of sensitive attribute gender : 0.015    Overestimation Unfairness of sensitive attribute gender : 0.1161    NonParity Unfairness of sensitive attribute gender : 0.0092    itemcoverage@5 : 0.0558    itemcoverage@10 : 0.0885    itemcoverage@20 : 0.1481    itemcoverage@50 : 0.3251    shannonentropy@5 : 0.0198    shannonentropy@10 : 0.0143    shannonentropy@20 : 0.0097    shannonentropy@50 : 0.0051
+Thu 05 Jun 2025 10:38:24 INFO  epoch 12 training [time: 47.20s, train loss: 857.6467]
+Thu 05 Jun 2025 10:47:52 INFO  epoch 12 evaluating [time: 568.59s, valid_score: 0.165100]
+Thu 05 Jun 2025 10:47:52 INFO  valid result: 
+ndcg@5 : 0.1651    ndcg@10 : 0.1655    ndcg@20 : 0.1782    ndcg@50 : 0.2125    recall@5 : 0.0881    recall@10 : 0.136    recall@20 : 0.2021    recall@50 : 0.3167    hit@5 : 0.4954    hit@10 : 0.6371    hit@20 : 0.7661    hit@50 : 0.8881    mrr@5 : 0.2995    mrr@10 : 0.3187    mrr@20 : 0.3276    mrr@50 : 0.3317    Differential Fairness of sensitive attribute gender : 1.503    giniindex@5 : 0.988    giniindex@10 : 0.9785    giniindex@20 : 0.9596    giniindex@50 : 0.903    popularitypercentage@5 : 0.8905    popularitypercentage@10 : 0.8018    popularitypercentage@20 : 0.6762    popularitypercentage@50 : 0.4793    Value Unfairness of sensitive attribute gender : 0.1365    Absolute Unfairness of sensitive attribute gender : 0.124    Underestimation Unfairness of sensitive attribute gender : 0.0141    Overestimation Unfairness of sensitive attribute gender : 0.1224    NonParity Unfairness of sensitive attribute gender : 0.013    itemcoverage@5 : 0.0526    itemcoverage@10 : 0.0879    itemcoverage@20 : 0.1521    itemcoverage@50 : 0.3269    shannonentropy@5 : 0.021    shannonentropy@10 : 0.0143    shannonentropy@20 : 0.0094    shannonentropy@50 : 0.0051
+Thu 05 Jun 2025 10:48:39 INFO  epoch 13 training [time: 47.01s, train loss: 855.9436]
+Thu 05 Jun 2025 10:58:08 INFO  epoch 13 evaluating [time: 568.38s, valid_score: 0.105200]
+Thu 05 Jun 2025 10:58:08 INFO  valid result: 
+ndcg@5 : 0.1052    ndcg@10 : 0.11    ndcg@20 : 0.1241    ndcg@50 : 0.1567    recall@5 : 0.0539    recall@10 : 0.093    recall@20 : 0.1511    recall@50 : 0.2593    hit@5 : 0.3518    hit@10 : 0.504    hit@20 : 0.6601    hit@50 : 0.8311    mrr@5 : 0.1996    mrr@10 : 0.2198    mrr@20 : 0.2306    mrr@50 : 0.2363    Differential Fairness of sensitive attribute gender : 1.4943    giniindex@5 : 0.9876    giniindex@10 : 0.9783    giniindex@20 : 0.9595    giniindex@50 : 0.9032    popularitypercentage@5 : 0.6975    popularitypercentage@10 : 0.6222    popularitypercentage@20 : 0.5237    popularitypercentage@50 : 0.3809    Value Unfairness of sensitive attribute gender : 0.1335    Absolute Unfairness of sensitive attribute gender : 0.1196    Underestimation Unfairness of sensitive attribute gender : 0.019    Overestimation Unfairness of sensitive attribute gender : 0.1146    NonParity Unfairness of sensitive attribute gender : 0.012    itemcoverage@5 : 0.0583    itemcoverage@10 : 0.0896    itemcoverage@20 : 0.1519    itemcoverage@50 : 0.3243    shannonentropy@5 : 0.0191    shannonentropy@10 : 0.0141    shannonentropy@20 : 0.0094    shannonentropy@50 : 0.0051
+Thu 05 Jun 2025 10:58:08 INFO  Finished pretraining, best eval result in epoch 2
+Thu 05 Jun 2025 10:58:08 INFO  Train Filter
+Thu 05 Jun 2025 10:58:48 INFO  Train Discriminator
+Thu 05 Jun 2025 10:59:27 INFO  epoch 0 training [time: 78.72s, train_loss1: 950.9106, train_loss2: 1083.7504]
+Thu 05 Jun 2025 11:00:04 INFO  epoch 0 evaluating [time: 36.73s, valid_score: 0.150300]
+Thu 05 Jun 2025 11:00:04 INFO  valid result: 
+ndcg@5 : 0.1503    ndcg@10 : 0.1608    ndcg@20 : 0.1751    ndcg@50 : 0.2052    recall@5 : 0.091    recall@10 : 0.1437    recall@20 : 0.208    recall@50 : 0.3091    hit@5 : 0.4815    hit@10 : 0.6571    hit@20 : 0.7886    hit@50 : 0.9013    mrr@5 : 0.2678    mrr@10 : 0.2917    mrr@20 : 0.3009    mrr@50 : 0.3047    Differential Fairness of sensitive attribute gender : 1.504    giniindex@5 : 0.9885    giniindex@10 : 0.9788    giniindex@20 : 0.9599    giniindex@50 : 0.904    popularitypercentage@5 : 0.8833    popularitypercentage@10 : 0.824    popularitypercentage@20 : 0.6886    popularitypercentage@50 : 0.4792    Value Unfairness of sensitive attribute gender : 0.1332    Absolute Unfairness of sensitive attribute gender : 0.1187    Underestimation Unfairness of sensitive attribute gender : 0.0166    Overestimation Unfairness of sensitive attribute gender : 0.1166    NonParity Unfairness of sensitive attribute gender : 0.0085    itemcoverage@5 : 0.0558    itemcoverage@10 : 0.0933    itemcoverage@20 : 0.1543    itemcoverage@50 : 0.3207    shannonentropy@5 : 0.0195    shannonentropy@10 : 0.0135    shannonentropy@20 : 0.0093    shannonentropy@50 : 0.0052
+Thu 05 Jun 2025 11:00:04 INFO  Saving current: saved/FairGo_GCN-Jun-05-2025_08-34-28.pth
+Thu 05 Jun 2025 11:00:04 INFO  Train Filter
+Thu 05 Jun 2025 11:00:43 INFO  Train Discriminator
+Thu 05 Jun 2025 11:01:22 INFO  epoch 1 training [time: 78.48s, train_loss1: 879.0132, train_loss2: 865.5450]
+Thu 05 Jun 2025 11:01:59 INFO  epoch 1 evaluating [time: 36.61s, valid_score: 0.176300]
+Thu 05 Jun 2025 11:01:59 INFO  valid result: 
+ndcg@5 : 0.1763    ndcg@10 : 0.1751    ndcg@20 : 0.1852    ndcg@50 : 0.2172    recall@5 : 0.0997    recall@10 : 0.1449    recall@20 : 0.2075    recall@50 : 0.3166    hit@5 : 0.5293    hit@10 : 0.6659    hit@20 : 0.78    hit@50 : 0.8993    mrr@5 : 0.3158    mrr@10 : 0.3342    mrr@20 : 0.3421    mrr@50 : 0.3461    Differential Fairness of sensitive attribute gender : 1.5123    giniindex@5 : 0.9881    giniindex@10 : 0.9783    giniindex@20 : 0.9595    giniindex@50 : 0.9033    popularitypercentage@5 : 0.9127    popularitypercentage@10 : 0.8195    popularitypercentage@20 : 0.6827    popularitypercentage@50 : 0.4834    Value Unfairness of sensitive attribute gender : 0.1317    Absolute Unfairness of sensitive attribute gender : 0.1207    Underestimation Unfairness of sensitive attribute gender : 0.0121    Overestimation Unfairness of sensitive attribute gender : 0.1196    NonParity Unfairness of sensitive attribute gender : 0.0089    itemcoverage@5 : 0.0566    itemcoverage@10 : 0.0925    itemcoverage@20 : 0.1538    itemcoverage@50 : 0.324    shannonentropy@5 : 0.0194    shannonentropy@10 : 0.0136    shannonentropy@20 : 0.0093    shannonentropy@50 : 0.0051
+Thu 05 Jun 2025 11:01:59 INFO  Saving current: saved/FairGo_GCN-Jun-05-2025_08-34-28.pth
+Thu 05 Jun 2025 11:01:59 INFO  Train Filter
+Thu 05 Jun 2025 11:02:38 INFO  Train Discriminator
+Thu 05 Jun 2025 11:03:17 INFO  epoch 2 training [time: 78.48s, train_loss1: 874.2388, train_loss2: 850.0794]
+Thu 05 Jun 2025 11:03:54 INFO  epoch 2 evaluating [time: 36.79s, valid_score: 0.152900]
+Thu 05 Jun 2025 11:03:54 INFO  valid result: 
+ndcg@5 : 0.1529    ndcg@10 : 0.1566    ndcg@20 : 0.1724    ndcg@50 : 0.2051    recall@5 : 0.0865    recall@10 : 0.1356    recall@20 : 0.2003    recall@50 : 0.3063    hit@5 : 0.4651    hit@10 : 0.6205    hit@20 : 0.7561    hit@50 : 0.8902    mrr@5 : 0.2871    mrr@10 : 0.3078    mrr@20 : 0.3173    mrr@50 : 0.3218    Differential Fairness of sensitive attribute gender : 1.5038    giniindex@5 : 0.9884    giniindex@10 : 0.9789    giniindex@20 : 0.9597    giniindex@50 : 0.9026    popularitypercentage@5 : 0.8447    popularitypercentage@10 : 0.7494    popularitypercentage@20 : 0.6464    popularitypercentage@50 : 0.4726    Value Unfairness of sensitive attribute gender : 0.1316    Absolute Unfairness of sensitive attribute gender : 0.1182    Underestimation Unfairness of sensitive attribute gender : 0.0173    Overestimation Unfairness of sensitive attribute gender : 0.1144    NonParity Unfairness of sensitive attribute gender : 0.0084    itemcoverage@5 : 0.0558    itemcoverage@10 : 0.0939    itemcoverage@20 : 0.161    itemcoverage@50 : 0.3364    shannonentropy@5 : 0.0196    shannonentropy@10 : 0.0134    shannonentropy@20 : 0.0089    shannonentropy@50 : 0.005
+Thu 05 Jun 2025 11:03:54 INFO  Train Filter
+Thu 05 Jun 2025 11:04:33 INFO  Train Discriminator
+Thu 05 Jun 2025 11:05:12 INFO  epoch 3 training [time: 78.35s, train_loss1: 877.1859, train_loss2: 842.2096]
+Thu 05 Jun 2025 11:05:49 INFO  epoch 3 evaluating [time: 36.69s, valid_score: 0.157800]
+Thu 05 Jun 2025 11:05:49 INFO  valid result: 
+ndcg@5 : 0.1578    ndcg@10 : 0.1638    ndcg@20 : 0.1782    ndcg@50 : 0.2096    recall@5 : 0.0948    recall@10 : 0.1447    recall@20 : 0.2068    recall@50 : 0.311    hit@5 : 0.5066    hit@10 : 0.6591    hit@20 : 0.7859    hit@50 : 0.8975    mrr@5 : 0.2732    mrr@10 : 0.2936    mrr@20 : 0.3025    mrr@50 : 0.3063    Differential Fairness of sensitive attribute gender : 1.505    giniindex@5 : 0.9882    giniindex@10 : 0.9785    giniindex@20 : 0.9592    giniindex@50 : 0.9022    popularitypercentage@5 : 0.8607    popularitypercentage@10 : 0.7976    popularitypercentage@20 : 0.6754    popularitypercentage@50 : 0.4709    Value Unfairness of sensitive attribute gender : 0.1328    Absolute Unfairness of sensitive attribute gender : 0.1196    Underestimation Unfairness of sensitive attribute gender : 0.0164    Overestimation Unfairness of sensitive attribute gender : 0.1163    NonParity Unfairness of sensitive attribute gender : 0.0076    itemcoverage@5 : 0.0553    itemcoverage@10 : 0.0928    itemcoverage@20 : 0.1616    itemcoverage@50 : 0.3421    shannonentropy@5 : 0.0198    shannonentropy@10 : 0.0136    shannonentropy@20 : 0.0089    shannonentropy@50 : 0.0049
+Thu 05 Jun 2025 11:05:49 INFO  Train Filter
+Thu 05 Jun 2025 11:06:29 INFO  Train Discriminator
+Thu 05 Jun 2025 11:07:08 INFO  epoch 4 training [time: 79.06s, train_loss1: 872.6424, train_loss2: 835.4198]
+Thu 05 Jun 2025 11:07:45 INFO  epoch 4 evaluating [time: 36.64s, valid_score: 0.150100]
+Thu 05 Jun 2025 11:07:45 INFO  valid result: 
+ndcg@5 : 0.1501    ndcg@10 : 0.1558    ndcg@20 : 0.1716    ndcg@50 : 0.2056    recall@5 : 0.0859    recall@10 : 0.1364    recall@20 : 0.2032    recall@50 : 0.3131    hit@5 : 0.4671    hit@10 : 0.6268    hit@20 : 0.7651    hit@50 : 0.8962    mrr@5 : 0.2749    mrr@10 : 0.2963    mrr@20 : 0.306    mrr@50 : 0.3105    Differential Fairness of sensitive attribute gender : 1.5073    giniindex@5 : 0.9882    giniindex@10 : 0.9786    giniindex@20 : 0.9595    giniindex@50 : 0.9024    popularitypercentage@5 : 0.8997    popularitypercentage@10 : 0.8046    popularitypercentage@20 : 0.6741    popularitypercentage@50 : 0.4814    Value Unfairness of sensitive attribute gender : 0.1319    Absolute Unfairness of sensitive attribute gender : 0.119    Underestimation Unfairness of sensitive attribute gender : 0.0149    Overestimation Unfairness of sensitive attribute gender : 0.117    NonParity Unfairness of sensitive attribute gender : 0.0084    itemcoverage@5 : 0.0553    itemcoverage@10 : 0.0917    itemcoverage@20 : 0.1583    itemcoverage@50 : 0.348    shannonentropy@5 : 0.0199    shannonentropy@10 : 0.0137    shannonentropy@20 : 0.009    shannonentropy@50 : 0.0048
+Thu 05 Jun 2025 11:07:45 INFO  Train Filter
+Thu 05 Jun 2025 11:08:24 INFO  Train Discriminator
+Thu 05 Jun 2025 11:09:04 INFO  epoch 5 training [time: 79.32s, train_loss1: 872.4611, train_loss2: 831.2392]
+Thu 05 Jun 2025 11:09:41 INFO  epoch 5 evaluating [time: 36.78s, valid_score: 0.160400]
+Thu 05 Jun 2025 11:09:41 INFO  valid result: 
+ndcg@5 : 0.1604    ndcg@10 : 0.1625    ndcg@20 : 0.1752    ndcg@50 : 0.2077    recall@5 : 0.091    recall@10 : 0.1401    recall@20 : 0.2032    recall@50 : 0.3125    hit@5 : 0.4945    hit@10 : 0.6425    hit@20 : 0.7732    hit@50 : 0.8978    mrr@5 : 0.2919    mrr@10 : 0.3116    mrr@20 : 0.3207    mrr@50 : 0.3249    Differential Fairness of sensitive attribute gender : 1.5074    giniindex@5 : 0.9882    giniindex@10 : 0.9785    giniindex@20 : 0.9593    giniindex@50 : 0.903    popularitypercentage@5 : 0.8572    popularitypercentage@10 : 0.7685    popularitypercentage@20 : 0.6485    popularitypercentage@50 : 0.4651    Value Unfairness of sensitive attribute gender : 0.134    Absolute Unfairness of sensitive attribute gender : 0.1213    Underestimation Unfairness of sensitive attribute gender : 0.0152    Overestimation Unfairness of sensitive attribute gender : 0.1188    NonParity Unfairness of sensitive attribute gender : 0.0088    itemcoverage@5 : 0.0531    itemcoverage@10 : 0.0879    itemcoverage@20 : 0.16    itemcoverage@50 : 0.3402    shannonentropy@5 : 0.0207    shannonentropy@10 : 0.0143    shannonentropy@20 : 0.009    shannonentropy@50 : 0.0049
+Thu 05 Jun 2025 11:09:41 INFO  Train Filter
+Thu 05 Jun 2025 11:10:20 INFO  Train Discriminator
+Thu 05 Jun 2025 11:10:59 INFO  epoch 6 training [time: 78.67s, train_loss1: 871.7004, train_loss2: 828.0524]
+Thu 05 Jun 2025 11:11:36 INFO  epoch 6 evaluating [time: 36.87s, valid_score: 0.161100]
+Thu 05 Jun 2025 11:11:36 INFO  valid result: 
+ndcg@5 : 0.1611    ndcg@10 : 0.161    ndcg@20 : 0.1734    ndcg@50 : 0.209    recall@5 : 0.0874    recall@10 : 0.1366    recall@20 : 0.2004    recall@50 : 0.3169    hit@5 : 0.4892    hit@10 : 0.6338    hit@20 : 0.7642    hit@50 : 0.9053    mrr@5 : 0.2922    mrr@10 : 0.3116    mrr@20 : 0.3207    mrr@50 : 0.3254    Differential Fairness of sensitive attribute gender : 1.5078    giniindex@5 : 0.9882    giniindex@10 : 0.9786    giniindex@20 : 0.9596    giniindex@50 : 0.9025    popularitypercentage@5 : 0.8824    popularitypercentage@10 : 0.7756    popularitypercentage@20 : 0.6419    popularitypercentage@50 : 0.4618    Value Unfairness of sensitive attribute gender : 0.1328    Absolute Unfairness of sensitive attribute gender : 0.1203    Underestimation Unfairness of sensitive attribute gender : 0.0149    Overestimation Unfairness of sensitive attribute gender : 0.1179    NonParity Unfairness of sensitive attribute gender : 0.0106    itemcoverage@5 : 0.0537    itemcoverage@10 : 0.092    itemcoverage@20 : 0.1635    itemcoverage@50 : 0.3396    shannonentropy@5 : 0.0204    shannonentropy@10 : 0.0137    shannonentropy@20 : 0.0088    shannonentropy@50 : 0.0049
+Thu 05 Jun 2025 11:11:36 INFO  Train Filter
+Thu 05 Jun 2025 11:12:15 INFO  Train Discriminator
+Thu 05 Jun 2025 11:12:54 INFO  epoch 7 training [time: 78.18s, train_loss1: 871.0020, train_loss2: 824.7628]
+Thu 05 Jun 2025 11:13:31 INFO  epoch 7 evaluating [time: 36.70s, valid_score: 0.140800]
+Thu 05 Jun 2025 11:13:31 INFO  valid result: 
+ndcg@5 : 0.1408    ndcg@10 : 0.1477    ndcg@20 : 0.1665    ndcg@50 : 0.2015    recall@5 : 0.0842    recall@10 : 0.1336    recall@20 : 0.2027    recall@50 : 0.313    hit@5 : 0.4561    hit@10 : 0.618    hit@20 : 0.7609    hit@50 : 0.8969    mrr@5 : 0.2486    mrr@10 : 0.2703    mrr@20 : 0.2803    mrr@50 : 0.2849    Differential Fairness of sensitive attribute gender : 1.506    giniindex@5 : 0.9884    giniindex@10 : 0.9787    giniindex@20 : 0.9596    giniindex@50 : 0.9025    popularitypercentage@5 : 0.8412    popularitypercentage@10 : 0.7597    popularitypercentage@20 : 0.6556    popularitypercentage@50 : 0.4735    Value Unfairness of sensitive attribute gender : 0.1339    Absolute Unfairness of sensitive attribute gender : 0.1202    Underestimation Unfairness of sensitive attribute gender : 0.016    Overestimation Unfairness of sensitive attribute gender : 0.1179    NonParity Unfairness of sensitive attribute gender : 0.0112    itemcoverage@5 : 0.054    itemcoverage@10 : 0.0904    itemcoverage@20 : 0.1565    itemcoverage@50 : 0.3423    shannonentropy@5 : 0.0203    shannonentropy@10 : 0.0139    shannonentropy@20 : 0.0091    shannonentropy@50 : 0.0049
+Thu 05 Jun 2025 11:13:31 INFO  Train Filter
+Thu 05 Jun 2025 11:14:08 INFO  Train Discriminator
+Thu 05 Jun 2025 11:14:47 INFO  epoch 8 training [time: 75.49s, train_loss1: 871.2700, train_loss2: 823.1858]
+Thu 05 Jun 2025 11:15:23 INFO  epoch 8 evaluating [time: 36.73s, valid_score: 0.153800]
+Thu 05 Jun 2025 11:15:23 INFO  valid result: 
+ndcg@5 : 0.1538    ndcg@10 : 0.1574    ndcg@20 : 0.1723    ndcg@50 : 0.2033    recall@5 : 0.0856    recall@10 : 0.1353    recall@20 : 0.2016    recall@50 : 0.3073    hit@5 : 0.4833    hit@10 : 0.6356    hit@20 : 0.7702    hit@50 : 0.8858    mrr@5 : 0.2811    mrr@10 : 0.3015    mrr@20 : 0.3111    mrr@50 : 0.315    Differential Fairness of sensitive attribute gender : 1.5116    giniindex@5 : 0.988    giniindex@10 : 0.9783    giniindex@20 : 0.9591    giniindex@50 : 0.9021    popularitypercentage@5 : 0.8662    popularitypercentage@10 : 0.7659    popularitypercentage@20 : 0.6363    popularitypercentage@50 : 0.4465    Value Unfairness of sensitive attribute gender : 0.1339    Absolute Unfairness of sensitive attribute gender : 0.1214    Underestimation Unfairness of sensitive attribute gender : 0.0146    Overestimation Unfairness of sensitive attribute gender : 0.1193    NonParity Unfairness of sensitive attribute gender : 0.0093    itemcoverage@5 : 0.0585    itemcoverage@10 : 0.096    itemcoverage@20 : 0.1629    itemcoverage@50 : 0.3464    shannonentropy@5 : 0.0188    shannonentropy@10 : 0.0132    shannonentropy@20 : 0.0088    shannonentropy@50 : 0.0048
+Thu 05 Jun 2025 11:15:23 INFO  Train Filter
+Thu 05 Jun 2025 11:16:02 INFO  Train Discriminator
+Thu 05 Jun 2025 11:16:41 INFO  epoch 9 training [time: 78.00s, train_loss1: 870.4649, train_loss2: 821.0065]
+Thu 05 Jun 2025 11:17:18 INFO  epoch 9 evaluating [time: 36.57s, valid_score: 0.127600]
+Thu 05 Jun 2025 11:17:18 INFO  valid result: 
+ndcg@5 : 0.1276    ndcg@10 : 0.1432    ndcg@20 : 0.1629    ndcg@50 : 0.1996    recall@5 : 0.0823    recall@10 : 0.1379    recall@20 : 0.208    recall@50 : 0.3195    hit@5 : 0.4384    hit@10 : 0.6195    hit@20 : 0.7714    hit@50 : 0.899    mrr@5 : 0.2207    mrr@10 : 0.2449    mrr@20 : 0.2557    mrr@50 : 0.26    Differential Fairness of sensitive attribute gender : 1.5115    giniindex@5 : 0.9883    giniindex@10 : 0.9786    giniindex@20 : 0.9592    giniindex@50 : 0.9018    popularitypercentage@5 : 0.8164    popularitypercentage@10 : 0.7555    popularitypercentage@20 : 0.6478    popularitypercentage@50 : 0.4899    Value Unfairness of sensitive attribute gender : 0.1335    Absolute Unfairness of sensitive attribute gender : 0.1214    Underestimation Unfairness of sensitive attribute gender : 0.0134    Overestimation Unfairness of sensitive attribute gender : 0.1202    NonParity Unfairness of sensitive attribute gender : 0.0111    itemcoverage@5 : 0.0583    itemcoverage@10 : 0.0987    itemcoverage@20 : 0.167    itemcoverage@50 : 0.3453    shannonentropy@5 : 0.0188    shannonentropy@10 : 0.0128    shannonentropy@20 : 0.0086    shannonentropy@50 : 0.0048
+Thu 05 Jun 2025 11:17:18 INFO  Train Filter
+Thu 05 Jun 2025 11:17:57 INFO  Train Discriminator
+Thu 05 Jun 2025 11:18:36 INFO  epoch 10 training [time: 77.97s, train_loss1: 869.5247, train_loss2: 819.0425]
+Thu 05 Jun 2025 11:19:13 INFO  epoch 10 evaluating [time: 36.63s, valid_score: 0.157700]
+Thu 05 Jun 2025 11:19:13 INFO  valid result: 
+ndcg@5 : 0.1577    ndcg@10 : 0.1615    ndcg@20 : 0.1769    ndcg@50 : 0.2112    recall@5 : 0.0903    recall@10 : 0.1416    recall@20 : 0.2087    recall@50 : 0.3206    hit@5 : 0.4921    hit@10 : 0.6435    hit@20 : 0.7757    hit@50 : 0.9028    mrr@5 : 0.2851    mrr@10 : 0.3053    mrr@20 : 0.3145    mrr@50 : 0.3187    Differential Fairness of sensitive attribute gender : 1.5071    giniindex@5 : 0.9882    giniindex@10 : 0.9786    giniindex@20 : 0.9597    giniindex@50 : 0.9029    popularitypercentage@5 : 0.8206    popularitypercentage@10 : 0.7694    popularitypercentage@20 : 0.6773    popularitypercentage@50 : 0.4811    Value Unfairness of sensitive attribute gender : 0.1322    Absolute Unfairness of sensitive attribute gender : 0.1189    Underestimation Unfairness of sensitive attribute gender : 0.0157    Overestimation Unfairness of sensitive attribute gender : 0.1164    NonParity Unfairness of sensitive attribute gender : 0.009    itemcoverage@5 : 0.0556    itemcoverage@10 : 0.0906    itemcoverage@20 : 0.1578    itemcoverage@50 : 0.3488    shannonentropy@5 : 0.0198    shannonentropy@10 : 0.0139    shannonentropy@20 : 0.0091    shannonentropy@50 : 0.0048
+Thu 05 Jun 2025 11:19:13 INFO  Train Filter
+Thu 05 Jun 2025 11:19:51 INFO  Train Discriminator
+Thu 05 Jun 2025 11:20:31 INFO  epoch 11 training [time: 77.95s, train_loss1: 868.7023, train_loss2: 817.9337]
+Thu 05 Jun 2025 11:21:07 INFO  epoch 11 evaluating [time: 36.55s, valid_score: 0.140900]
+Thu 05 Jun 2025 11:21:07 INFO  valid result: 
+ndcg@5 : 0.1409    ndcg@10 : 0.1469    ndcg@20 : 0.1631    ndcg@50 : 0.1984    recall@5 : 0.0825    recall@10 : 0.1304    recall@20 : 0.1961    recall@50 : 0.3096    hit@5 : 0.456    hit@10 : 0.6103    hit@20 : 0.7497    hit@50 : 0.8932    mrr@5 : 0.2569    mrr@10 : 0.2776    mrr@20 : 0.2873    mrr@50 : 0.2921    Differential Fairness of sensitive attribute gender : 1.5033    giniindex@5 : 0.9882    giniindex@10 : 0.9785    giniindex@20 : 0.9592    giniindex@50 : 0.902    popularitypercentage@5 : 0.8259    popularitypercentage@10 : 0.7181    popularitypercentage@20 : 0.6124    popularitypercentage@50 : 0.4483    Value Unfairness of sensitive attribute gender : 0.1344    Absolute Unfairness of sensitive attribute gender : 0.1207    Underestimation Unfairness of sensitive attribute gender : 0.0168    Overestimation Unfairness of sensitive attribute gender : 0.1176    NonParity Unfairness of sensitive attribute gender : 0.0113    itemcoverage@5 : 0.0583    itemcoverage@10 : 0.0977    itemcoverage@20 : 0.1667    itemcoverage@50 : 0.3499    shannonentropy@5 : 0.0188    shannonentropy@10 : 0.0129    shannonentropy@20 : 0.0086    shannonentropy@50 : 0.0048
+Thu 05 Jun 2025 11:21:07 INFO  Train Filter
+Thu 05 Jun 2025 11:21:46 INFO  Train Discriminator
+Thu 05 Jun 2025 11:22:24 INFO  epoch 12 training [time: 77.16s, train_loss1: 869.4468, train_loss2: 816.7282]
+Thu 05 Jun 2025 11:23:01 INFO  epoch 12 evaluating [time: 36.75s, valid_score: 0.151600]
+Thu 05 Jun 2025 11:23:01 INFO  valid result: 
+ndcg@5 : 0.1516    ndcg@10 : 0.1562    ndcg@20 : 0.1704    ndcg@50 : 0.2048    recall@5 : 0.0874    recall@10 : 0.1352    recall@20 : 0.1984    recall@50 : 0.3093    hit@5 : 0.4674    hit@10 : 0.6245    hit@20 : 0.7526    hit@50 : 0.8884    mrr@5 : 0.2764    mrr@10 : 0.2974    mrr@20 : 0.3066    mrr@50 : 0.3111    Differential Fairness of sensitive attribute gender : 1.5029    giniindex@5 : 0.9882    giniindex@10 : 0.9785    giniindex@20 : 0.9593    giniindex@50 : 0.902    popularitypercentage@5 : 0.8771    popularitypercentage@10 : 0.7712    popularitypercentage@20 : 0.6394    popularitypercentage@50 : 0.4622    Value Unfairness of sensitive attribute gender : 0.136    Absolute Unfairness of sensitive attribute gender : 0.1215    Underestimation Unfairness of sensitive attribute gender : 0.0178    Overestimation Unfairness of sensitive attribute gender : 0.1182    NonParity Unfairness of sensitive attribute gender : 0.011    itemcoverage@5 : 0.0566    itemcoverage@10 : 0.095    itemcoverage@20 : 0.1632    itemcoverage@50 : 0.3499    shannonentropy@5 : 0.0194    shannonentropy@10 : 0.0133    shannonentropy@20 : 0.0088    shannonentropy@50 : 0.0048
+Thu 05 Jun 2025 11:23:01 INFO  Finished training, best eval result in epoch 1
+Thu 05 Jun 2025 11:23:01 INFO  Loading pretrain model structure and parameters from saved/FairGo_GCN-ml-1M-pretrain.pth
+Thu 05 Jun 2025 11:32:23 INFO  Loading model structure and parameters from saved/FairGo_GCN-Jun-05-2025_08-34-28.pth
+Thu 05 Jun 2025 11:33:02 INFO  best valid : OrderedDict([('ndcg@5', 0.1763), ('ndcg@10', 0.1751), ('ndcg@20', 0.1852), ('ndcg@50', 0.2172), ('recall@5', 0.0997), ('recall@10', 0.1449), ('recall@20', 0.2075), ('recall@50', 0.3166), ('hit@5', 0.5293), ('hit@10', 0.6659), ('hit@20', 0.78), ('hit@50', 0.8993), ('mrr@5', 0.3158), ('mrr@10', 0.3342), ('mrr@20', 0.3421), ('mrr@50', 0.3461), ('Differential Fairness of sensitive attribute gender', 1.5123), ('giniindex@5', 0.9881), ('giniindex@10', 0.9783), ('giniindex@20', 0.9595), ('giniindex@50', 0.9033), ('popularitypercentage@5', 0.9127), ('popularitypercentage@10', 0.8195), ('popularitypercentage@20', 0.6827), ('popularitypercentage@50', 0.4834), ('Value Unfairness of sensitive attribute gender', 0.1317), ('Absolute Unfairness of sensitive attribute gender', 0.1207), ('Underestimation Unfairness of sensitive attribute gender', 0.0121), ('Overestimation Unfairness of sensitive attribute gender', 0.1196), ('NonParity Unfairness of sensitive attribute gender', 0.0089), ('itemcoverage@5', 0.0566), ('itemcoverage@10', 0.0925), ('itemcoverage@20', 0.1538), ('itemcoverage@50', 0.324), ('shannonentropy@5', 0.0194), ('shannonentropy@10', 0.0136), ('shannonentropy@20', 0.0093), ('shannonentropy@50', 0.0051)])
+Thu 05 Jun 2025 11:33:02 INFO  test result: {'pretrain-ndcg@5': 0.1894, 'pretrain-ndcg@10': 0.1905, 'pretrain-ndcg@20': 0.2054, 'pretrain-ndcg@50': 0.2364, 'pretrain-recall@5': 0.1012, 'pretrain-recall@10': 0.1558, 'pretrain-recall@20': 0.2314, 'pretrain-recall@50': 0.3491, 'pretrain-hit@5': 0.5328, 'pretrain-hit@10': 0.6763, 'pretrain-hit@20': 0.8078, 'pretrain-hit@50': 0.9086, 'pretrain-mrr@5': 0.3279, 'pretrain-mrr@10': 0.3472, 'pretrain-mrr@20': 0.3565, 'pretrain-mrr@50': 0.3599, 'pretrain-Differential Fairness of sensitive attribute gender': 1.504, 'pretrain-giniindex@5': 0.9878, 'pretrain-giniindex@10': 0.9781, 'pretrain-giniindex@20': 0.9587, 'pretrain-giniindex@50': 0.9023, 'pretrain-popularitypercentage@5': 0.9474, 'pretrain-popularitypercentage@10': 0.8708, 'pretrain-popularitypercentage@20': 0.7402, 'pretrain-popularitypercentage@50': 0.5127, 'pretrain-Value Unfairness of sensitive attribute gender': 0.1309, 'pretrain-Absolute Unfairness of sensitive attribute gender': 0.1177, 'pretrain-Underestimation Unfairness of sensitive attribute gender': 0.014, 'pretrain-Overestimation Unfairness of sensitive attribute gender': 0.1168, 'pretrain-NonParity Unfairness of sensitive attribute gender': 0.0101, 'pretrain-itemcoverage@5': 0.051, 'pretrain-itemcoverage@10': 0.0858, 'pretrain-itemcoverage@20': 0.147, 'pretrain-itemcoverage@50': 0.3229, 'pretrain-shannonentropy@5': 0.0217, 'pretrain-shannonentropy@10': 0.0148, 'pretrain-shannonentropy@20': 0.0098, 'pretrain-shannonentropy@50': 0.0052, 'finetune-ndcg@5': 0.1626, 'finetune-ndcg@10': 0.1655, 'finetune-ndcg@20': 0.1764, 'finetune-ndcg@50': 0.2095, 'finetune-recall@5': 0.0879, 'finetune-recall@10': 0.1396, 'finetune-recall@20': 0.2009, 'finetune-recall@50': 0.313, 'finetune-hit@5': 0.4815, 'finetune-hit@10': 0.6354, 'finetune-hit@20': 0.7531, 'finetune-hit@50': 0.8925, 'finetune-mrr@5': 0.2913, 'finetune-mrr@10': 0.3118, 'finetune-mrr@20': 0.3201, 'finetune-mrr@50': 0.3249, 'finetune-Differential Fairness of sensitive attribute gender': 1.5032, 'finetune-giniindex@5': 0.9879, 'finetune-giniindex@10': 0.9781, 'finetune-giniindex@20': 0.9587, 'finetune-giniindex@50': 0.9009, 'finetune-popularitypercentage@5': 0.8684, 'finetune-popularitypercentage@10': 0.7588, 'finetune-popularitypercentage@20': 0.6271, 'finetune-popularitypercentage@50': 0.4492, 'finetune-Value Unfairness of sensitive attribute gender': 0.1323, 'finetune-Absolute Unfairness of sensitive attribute gender': 0.1194, 'finetune-Underestimation Unfairness of sensitive attribute gender': 0.0175, 'finetune-Overestimation Unfairness of sensitive attribute gender': 0.1149, 'finetune-NonParity Unfairness of sensitive attribute gender': 0.0107, 'finetune-itemcoverage@5': 0.055, 'finetune-itemcoverage@10': 0.0958, 'finetune-itemcoverage@20': 0.1643, 'finetune-itemcoverage@50': 0.3488, 'finetune-shannonentropy@5': 0.0201, 'finetune-shannonentropy@10': 0.0132, 'finetune-shannonentropy@20': 0.0087, 'finetune-shannonentropy@50': 0.0048}

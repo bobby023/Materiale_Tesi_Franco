@@ -1,0 +1,219 @@
+Thu 12 Jun 2025 16:31:05 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = dataset/ml-1M
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 100
+train_batch_size = 512
+learner = adam
+learning_rate = 0.001
+neg_sampling = None
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0001
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'RS': [8, 1, 1]}, 'group_by': 'user', 'order': 'RO', 'mode': 'uni100'}
+repeatable = False
+metrics = ['NDCG', 'Recall', 'Hit', 'MRR', 'Precision', 'MAP', 'ValueUnfairness', 'AbsoluteUnfairness', 'UnderUnfairness', 'OverUnfairness', 'NonParityUnfairness', 'ItemCoverage', 'ShannonEntropy']
+topk = [5, 10, 20, 50]
+valid_metric = NDCG@5
+valid_metric_bigger = True
+eval_batch_size = 8192
+metric_decimal_place = 4
+
+Dataset Hyper Parameters:
+LABEL_FIELD = label
+threshold = {'rating': 3.0}
+load_col = {'inter': ['user_id', 'item_id', 'rating', 'timestamp'], 'user': ['user_id', 'gender']}
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+NEG_PREFIX = neg_
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [0,inf)
+item_inter_num_interval = [0,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = None
+
+Other Hyper Parameters: 
+wandb_project = recbole
+require_pow = False
+sst_attr_list = ['gender']
+embedding_size = 64
+fair_objective = under
+fair_weight = 1.0
+popularity_ratio = 0.1
+MODEL_TYPE = ModelType.GENERAL
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+device = cuda
+train_neg_sample_args = {'strategy': 'none'}
+eval_neg_sample_args = {'strategy': 'by', 'by': 100, 'distribution': 'uniform'}
+
+
+Thu 12 Jun 2025 16:31:11 INFO  ml-1M
+The number of users: 6041
+Average actions of users: 165.5975165562914
+The number of items: 3707
+Average actions of items: 269.88909875876953
+The number of inters: 1000209
+The sparsity of the dataset: 95.53358229599758%
+Remain Fields: ['user_id', 'item_id', 'rating', 'timestamp', 'gender', 'label']
+Thu 12 Jun 2025 16:31:14 INFO  [Training]: train_batch_size = [512] negative sampling: [None]
+Thu 12 Jun 2025 16:31:14 INFO  [Evaluation]: eval_batch_size = [8192] eval_args: [{'split': {'RS': [8, 1, 1]}, 'group_by': 'user', 'order': 'RO', 'mode': 'uni100'}]
+Thu 12 Jun 2025 16:31:15 INFO  FOCF(
+  (user_embedding_layer): Embedding(6041, 64)
+  (item_embedding_layer): Embedding(3707, 64)
+  (rating_loss_fun): MSELoss()
+)
+Trainable parameters: 623872
+Thu 12 Jun 2025 16:31:35 INFO  epoch 0 training [time: 20.56s, train loss: 20077.3419]
+Thu 12 Jun 2025 16:32:03 INFO  epoch 0 evaluating [time: 27.55s, valid_score: 0.023600]
+Thu 12 Jun 2025 16:32:03 INFO  valid result: 
+ndcg@5 : 0.0236    ndcg@10 : 0.0263    ndcg@20 : 0.0324    ndcg@50 : 0.0523    recall@5 : 0.0125    recall@10 : 0.0247    recall@20 : 0.0459    recall@50 : 0.112    hit@5 : 0.0906    hit@10 : 0.1664    hit@20 : 0.2836    hit@50 : 0.5522    mrr@5 : 0.053    mrr@10 : 0.0627    mrr@20 : 0.0706    mrr@50 : 0.079    precision@5 : 0.0189    precision@10 : 0.0181    precision@20 : 0.0165    precision@50 : 0.0155    map@5 : 0.0126    map@10 : 0.0107    map@20 : 0.0107    map@50 : 0.0126    Value Unfairness of sensitive attribute gender : 0.1336    Absolute Unfairness of sensitive attribute gender : 0.118    Underestimation Unfairness of sensitive attribute gender : 0.1141    Overestimation Unfairness of sensitive attribute gender : 0.0195    NonParity Unfairness of sensitive attribute gender : 0.0088    itemcoverage@5 : 0.0626    itemcoverage@10 : 0.1041    itemcoverage@20 : 0.1864    itemcoverage@50 : 0.3941    shannonentropy@5 : 0.017    shannonentropy@10 : 0.0118    shannonentropy@20 : 0.0076    shannonentropy@50 : 0.0042
+Thu 12 Jun 2025 16:32:03 INFO  Saving current: saved/FOCF-Jun-12-2025_16-31-15.pth
+Thu 12 Jun 2025 16:32:23 INFO  epoch 1 training [time: 20.49s, train loss: 11832.5673]
+Thu 12 Jun 2025 16:32:51 INFO  epoch 1 evaluating [time: 27.70s, valid_score: 0.055600]
+Thu 12 Jun 2025 16:32:51 INFO  valid result: 
+ndcg@5 : 0.0556    ndcg@10 : 0.0641    ndcg@20 : 0.0737    ndcg@50 : 0.0979    recall@5 : 0.0345    recall@10 : 0.0594    recall@20 : 0.0959    recall@50 : 0.1724    hit@5 : 0.2195    hit@10 : 0.3719    hit@20 : 0.5247    hit@50 : 0.7581    mrr@5 : 0.1074    mrr@10 : 0.1279    mrr@20 : 0.1383    mrr@50 : 0.1459    precision@5 : 0.0495    precision@10 : 0.0472    precision@20 : 0.0379    precision@50 : 0.0298    map@5 : 0.0299    map@10 : 0.0278    map@20 : 0.0276    map@50 : 0.03    Value Unfairness of sensitive attribute gender : 0.1331    Absolute Unfairness of sensitive attribute gender : 0.1105    Underestimation Unfairness of sensitive attribute gender : 0.0743    Overestimation Unfairness of sensitive attribute gender : 0.0588    NonParity Unfairness of sensitive attribute gender : 0.0083    itemcoverage@5 : 0.0593    itemcoverage@10 : 0.0966    itemcoverage@20 : 0.1659    itemcoverage@50 : 0.3531    shannonentropy@5 : 0.0181    shannonentropy@10 : 0.0129    shannonentropy@20 : 0.0085    shannonentropy@50 : 0.0047
+Thu 12 Jun 2025 16:32:51 INFO  Saving current: saved/FOCF-Jun-12-2025_16-31-15.pth
+Thu 12 Jun 2025 16:33:12 INFO  epoch 2 training [time: 20.54s, train loss: 6576.4847]
+Thu 12 Jun 2025 16:33:39 INFO  epoch 2 evaluating [time: 27.54s, valid_score: 0.076100]
+Thu 12 Jun 2025 16:33:39 INFO  valid result: 
+ndcg@5 : 0.0761    ndcg@10 : 0.0818    ndcg@20 : 0.0964    ndcg@50 : 0.1267    recall@5 : 0.0486    recall@10 : 0.0781    recall@20 : 0.125    recall@50 : 0.2202    hit@5 : 0.2934    hit@10 : 0.4397    hit@20 : 0.6225    hit@50 : 0.831    mrr@5 : 0.1414    mrr@10 : 0.161    mrr@20 : 0.1736    mrr@50 : 0.1805    precision@5 : 0.0682    precision@10 : 0.0574    precision@20 : 0.0492    precision@50 : 0.0375    map@5 : 0.0411    map@10 : 0.0369    map@20 : 0.0375    map@50 : 0.0413    Value Unfairness of sensitive attribute gender : 0.137    Absolute Unfairness of sensitive attribute gender : 0.1105    Underestimation Unfairness of sensitive attribute gender : 0.0583    Overestimation Unfairness of sensitive attribute gender : 0.0787    NonParity Unfairness of sensitive attribute gender : 0.0011    itemcoverage@5 : 0.0542    itemcoverage@10 : 0.0898    itemcoverage@20 : 0.1521    itemcoverage@50 : 0.3288    shannonentropy@5 : 0.0199    shannonentropy@10 : 0.0138    shannonentropy@20 : 0.0093    shannonentropy@50 : 0.005
+Thu 12 Jun 2025 16:33:39 INFO  Saving current: saved/FOCF-Jun-12-2025_16-31-15.pth
+Thu 12 Jun 2025 16:34:00 INFO  epoch 3 training [time: 20.55s, train loss: 4493.8394]
+Thu 12 Jun 2025 16:34:27 INFO  epoch 3 evaluating [time: 27.65s, valid_score: 0.097600]
+Thu 12 Jun 2025 16:34:27 INFO  valid result: 
+ndcg@5 : 0.0976    ndcg@10 : 0.0988    ndcg@20 : 0.1125    ndcg@50 : 0.1471    recall@5 : 0.0548    recall@10 : 0.0882    recall@20 : 0.1416    recall@50 : 0.2505    hit@5 : 0.3407    hit@10 : 0.4757    hit@20 : 0.6483    hit@50 : 0.8555    mrr@5 : 0.1878    mrr@10 : 0.2054    mrr@20 : 0.2174    mrr@50 : 0.2241    precision@5 : 0.0834    precision@10 : 0.0657    precision@20 : 0.0541    precision@50 : 0.0419    map@5 : 0.0551    map@10 : 0.0465    map@20 : 0.0458    map@50 : 0.0503    Value Unfairness of sensitive attribute gender : 0.1336    Absolute Unfairness of sensitive attribute gender : 0.1078    Underestimation Unfairness of sensitive attribute gender : 0.0464    Overestimation Unfairness of sensitive attribute gender : 0.0872    NonParity Unfairness of sensitive attribute gender : 0.0033    itemcoverage@5 : 0.0593    itemcoverage@10 : 0.0917    itemcoverage@20 : 0.1551    itemcoverage@50 : 0.3305    shannonentropy@5 : 0.0183    shannonentropy@10 : 0.0136    shannonentropy@20 : 0.0092    shannonentropy@50 : 0.005
+Thu 12 Jun 2025 16:34:28 INFO  Saving current: saved/FOCF-Jun-12-2025_16-31-15.pth
+Thu 12 Jun 2025 16:34:48 INFO  epoch 4 training [time: 20.03s, train loss: 3505.1733]
+Thu 12 Jun 2025 16:35:15 INFO  epoch 4 evaluating [time: 27.61s, valid_score: 0.095900]
+Thu 12 Jun 2025 16:35:15 INFO  valid result: 
+ndcg@5 : 0.0959    ndcg@10 : 0.0991    ndcg@20 : 0.1134    ndcg@50 : 0.1514    recall@5 : 0.0531    recall@10 : 0.0876    recall@20 : 0.1412    recall@50 : 0.2624    hit@5 : 0.3144    hit@10 : 0.4565    hit@20 : 0.6329    hit@50 : 0.8667    mrr@5 : 0.1999    mrr@10 : 0.2187    mrr@20 : 0.231    mrr@50 : 0.2386    precision@5 : 0.0738    precision@10 : 0.0616    precision@20 : 0.052    precision@50 : 0.0419    map@5 : 0.0561    map@10 : 0.0479    map@20 : 0.0475    map@50 : 0.0526    Value Unfairness of sensitive attribute gender : 0.1323    Absolute Unfairness of sensitive attribute gender : 0.1084    Underestimation Unfairness of sensitive attribute gender : 0.0397    Overestimation Unfairness of sensitive attribute gender : 0.0926    NonParity Unfairness of sensitive attribute gender : 0.0072    itemcoverage@5 : 0.0558    itemcoverage@10 : 0.0933    itemcoverage@20 : 0.1516    itemcoverage@50 : 0.328    shannonentropy@5 : 0.0194    shannonentropy@10 : 0.0134    shannonentropy@20 : 0.0094    shannonentropy@50 : 0.0051
+Thu 12 Jun 2025 16:35:35 INFO  epoch 5 training [time: 19.71s, train loss: 2829.7421]
+Thu 12 Jun 2025 16:36:03 INFO  epoch 5 evaluating [time: 27.57s, valid_score: 0.090400]
+Thu 12 Jun 2025 16:36:03 INFO  valid result: 
+ndcg@5 : 0.0904    ndcg@10 : 0.1005    ndcg@20 : 0.1191    ndcg@50 : 0.1586    recall@5 : 0.0581    recall@10 : 0.0969    recall@20 : 0.1542    recall@50 : 0.2825    hit@5 : 0.3147    hit@10 : 0.4896    hit@20 : 0.6816    hit@50 : 0.8805    mrr@5 : 0.1798    mrr@10 : 0.2028    mrr@20 : 0.2161    mrr@50 : 0.2226    precision@5 : 0.0731    precision@10 : 0.0667    precision@20 : 0.0588    precision@50 : 0.0447    map@5 : 0.0514    map@10 : 0.0473    map@20 : 0.0489    map@50 : 0.0549    Value Unfairness of sensitive attribute gender : 0.1345    Absolute Unfairness of sensitive attribute gender : 0.1101    Underestimation Unfairness of sensitive attribute gender : 0.0382    Overestimation Unfairness of sensitive attribute gender : 0.0962    NonParity Unfairness of sensitive attribute gender : 0.0051    itemcoverage@5 : 0.0564    itemcoverage@10 : 0.0901    itemcoverage@20 : 0.1557    itemcoverage@50 : 0.3232    shannonentropy@5 : 0.0192    shannonentropy@10 : 0.0138    shannonentropy@20 : 0.0091    shannonentropy@50 : 0.0051
+Thu 12 Jun 2025 16:36:23 INFO  epoch 6 training [time: 20.33s, train loss: 2481.1862]
+Thu 12 Jun 2025 16:36:51 INFO  epoch 6 evaluating [time: 27.69s, valid_score: 0.107500]
+Thu 12 Jun 2025 16:36:51 INFO  valid result: 
+ndcg@5 : 0.1075    ndcg@10 : 0.1174    ndcg@20 : 0.1339    ndcg@50 : 0.1774    recall@5 : 0.0682    recall@10 : 0.1111    recall@20 : 0.172    recall@50 : 0.3103    hit@5 : 0.3699    hit@10 : 0.5488    hit@20 : 0.7104    hit@50 : 0.8969    mrr@5 : 0.2058    mrr@10 : 0.2297    mrr@20 : 0.241    mrr@50 : 0.2471    precision@5 : 0.0897    precision@10 : 0.0792    precision@20 : 0.0642    precision@50 : 0.0494    map@5 : 0.0614    map@10 : 0.056    map@20 : 0.0566    map@50 : 0.0637    Value Unfairness of sensitive attribute gender : 0.1316    Absolute Unfairness of sensitive attribute gender : 0.1069    Underestimation Unfairness of sensitive attribute gender : 0.0355    Overestimation Unfairness of sensitive attribute gender : 0.096    NonParity Unfairness of sensitive attribute gender : 0.0154    itemcoverage@5 : 0.0566    itemcoverage@10 : 0.0909    itemcoverage@20 : 0.1532    itemcoverage@50 : 0.3207    shannonentropy@5 : 0.0192    shannonentropy@10 : 0.0138    shannonentropy@20 : 0.0093    shannonentropy@50 : 0.0052
+Thu 12 Jun 2025 16:36:51 INFO  Saving current: saved/FOCF-Jun-12-2025_16-31-15.pth
+Thu 12 Jun 2025 16:37:11 INFO  epoch 7 training [time: 20.33s, train loss: 2258.3349]
+Thu 12 Jun 2025 16:37:39 INFO  epoch 7 evaluating [time: 27.68s, valid_score: 0.123700]
+Thu 12 Jun 2025 16:37:39 INFO  valid result: 
+ndcg@5 : 0.1237    ndcg@10 : 0.1275    ndcg@20 : 0.1457    ndcg@50 : 0.1902    recall@5 : 0.0713    recall@10 : 0.1143    recall@20 : 0.1839    recall@50 : 0.3271    hit@5 : 0.4056    hit@10 : 0.5651    hit@20 : 0.7311    hit@50 : 0.9154    mrr@5 : 0.2401    mrr@10 : 0.2612    mrr@20 : 0.2728    mrr@50 : 0.2789    precision@5 : 0.1019    precision@10 : 0.0836    precision@20 : 0.0691    precision@50 : 0.0524    map@5 : 0.0722    map@10 : 0.0621    map@20 : 0.0623    map@50 : 0.0696    Value Unfairness of sensitive attribute gender : 0.1317    Absolute Unfairness of sensitive attribute gender : 0.1064    Underestimation Unfairness of sensitive attribute gender : 0.0351    Overestimation Unfairness of sensitive attribute gender : 0.0967    NonParity Unfairness of sensitive attribute gender : 0.0095    itemcoverage@5 : 0.0566    itemcoverage@10 : 0.0917    itemcoverage@20 : 0.1532    itemcoverage@50 : 0.3237    shannonentropy@5 : 0.0193    shannonentropy@10 : 0.0137    shannonentropy@20 : 0.0093    shannonentropy@50 : 0.0051
+Thu 12 Jun 2025 16:37:39 INFO  Saving current: saved/FOCF-Jun-12-2025_16-31-15.pth
+Thu 12 Jun 2025 16:38:00 INFO  epoch 8 training [time: 20.67s, train loss: 2160.9309]
+Thu 12 Jun 2025 16:38:27 INFO  epoch 8 evaluating [time: 27.58s, valid_score: 0.110400]
+Thu 12 Jun 2025 16:38:27 INFO  valid result: 
+ndcg@5 : 0.1104    ndcg@10 : 0.1239    ndcg@20 : 0.1452    ndcg@50 : 0.1902    recall@5 : 0.0714    recall@10 : 0.1204    recall@20 : 0.1916    recall@50 : 0.3315    hit@5 : 0.3844    hit@10 : 0.5758    hit@20 : 0.7512    hit@50 : 0.9159    mrr@5 : 0.2054    mrr@10 : 0.231    mrr@20 : 0.2434    mrr@50 : 0.2489    precision@5 : 0.0947    precision@10 : 0.0863    precision@20 : 0.072    precision@50 : 0.0546    map@5 : 0.0627    map@10 : 0.0589    map@20 : 0.0613    map@50 : 0.0691    Value Unfairness of sensitive attribute gender : 0.1286    Absolute Unfairness of sensitive attribute gender : 0.1055    Underestimation Unfairness of sensitive attribute gender : 0.0345    Overestimation Unfairness of sensitive attribute gender : 0.0941    NonParity Unfairness of sensitive attribute gender : 0.008    itemcoverage@5 : 0.055    itemcoverage@10 : 0.0877    itemcoverage@20 : 0.1519    itemcoverage@50 : 0.3197    shannonentropy@5 : 0.0198    shannonentropy@10 : 0.0143    shannonentropy@20 : 0.0094    shannonentropy@50 : 0.0052
+Thu 12 Jun 2025 16:38:48 INFO  epoch 9 training [time: 20.82s, train loss: 2119.8935]
+Thu 12 Jun 2025 16:39:15 INFO  epoch 9 evaluating [time: 27.57s, valid_score: 0.135500]
+Thu 12 Jun 2025 16:39:15 INFO  valid result: 
+ndcg@5 : 0.1355    ndcg@10 : 0.1433    ndcg@20 : 0.1645    ndcg@50 : 0.2056    recall@5 : 0.0833    recall@10 : 0.1337    recall@20 : 0.2062    recall@50 : 0.3394    hit@5 : 0.4449    hit@10 : 0.6121    hit@20 : 0.777    hit@50 : 0.9243    mrr@5 : 0.252    mrr@10 : 0.2744    mrr@20 : 0.2861    mrr@50 : 0.291    precision@5 : 0.1142    precision@10 : 0.0966    precision@20 : 0.0815    precision@50 : 0.0581    map@5 : 0.0792    map@10 : 0.0708    map@20 : 0.0721    map@50 : 0.0789    Value Unfairness of sensitive attribute gender : 0.1313    Absolute Unfairness of sensitive attribute gender : 0.1074    Underestimation Unfairness of sensitive attribute gender : 0.0335    Overestimation Unfairness of sensitive attribute gender : 0.0978    NonParity Unfairness of sensitive attribute gender : 0.009    itemcoverage@5 : 0.0569    itemcoverage@10 : 0.0917    itemcoverage@20 : 0.1478    itemcoverage@50 : 0.3183    shannonentropy@5 : 0.0194    shannonentropy@10 : 0.0137    shannonentropy@20 : 0.0097    shannonentropy@50 : 0.0052
+Thu 12 Jun 2025 16:39:16 INFO  Saving current: saved/FOCF-Jun-12-2025_16-31-15.pth
+Thu 12 Jun 2025 16:39:36 INFO  epoch 10 training [time: 20.39s, train loss: 2064.6827]
+Thu 12 Jun 2025 16:40:04 INFO  epoch 10 evaluating [time: 27.81s, valid_score: 0.131800]
+Thu 12 Jun 2025 16:40:04 INFO  valid result: 
+ndcg@5 : 0.1318    ndcg@10 : 0.1418    ndcg@20 : 0.1628    ndcg@50 : 0.2064    recall@5 : 0.0824    recall@10 : 0.1334    recall@20 : 0.2083    recall@50 : 0.3451    hit@5 : 0.443    hit@10 : 0.6182    hit@20 : 0.7773    hit@50 : 0.9248    mrr@5 : 0.2388    mrr@10 : 0.2623    mrr@20 : 0.2733    mrr@50 : 0.2783    precision@5 : 0.1144    precision@10 : 0.0978    precision@20 : 0.0805    precision@50 : 0.0591    map@5 : 0.0764    map@10 : 0.0695    map@20 : 0.0711    map@50 : 0.0786    Value Unfairness of sensitive attribute gender : 0.131    Absolute Unfairness of sensitive attribute gender : 0.1047    Underestimation Unfairness of sensitive attribute gender : 0.0341    Overestimation Unfairness of sensitive attribute gender : 0.0969    NonParity Unfairness of sensitive attribute gender : 0.0082    itemcoverage@5 : 0.0569    itemcoverage@10 : 0.0914    itemcoverage@20 : 0.1492    itemcoverage@50 : 0.3229    shannonentropy@5 : 0.0193    shannonentropy@10 : 0.0137    shannonentropy@20 : 0.0096    shannonentropy@50 : 0.0051
+Thu 12 Jun 2025 16:40:24 INFO  epoch 11 training [time: 20.47s, train loss: 2098.0684]
+Thu 12 Jun 2025 16:40:52 INFO  epoch 11 evaluating [time: 27.54s, valid_score: 0.131800]
+Thu 12 Jun 2025 16:40:52 INFO  valid result: 
+ndcg@5 : 0.1318    ndcg@10 : 0.1389    ndcg@20 : 0.1558    ndcg@50 : 0.1997    recall@5 : 0.0772    recall@10 : 0.1258    recall@20 : 0.1949    recall@50 : 0.3365    hit@5 : 0.4313    hit@10 : 0.5935    hit@20 : 0.7445    hit@50 : 0.9136    mrr@5 : 0.2451    mrr@10 : 0.2669    mrr@20 : 0.2775    mrr@50 : 0.2831    precision@5 : 0.1122    precision@10 : 0.0944    precision@20 : 0.0751    precision@50 : 0.056    map@5 : 0.0773    map@10 : 0.0686    map@20 : 0.0684    map@50 : 0.0756    Value Unfairness of sensitive attribute gender : 0.1318    Absolute Unfairness of sensitive attribute gender : 0.1056    Underestimation Unfairness of sensitive attribute gender : 0.0344    Overestimation Unfairness of sensitive attribute gender : 0.0974    NonParity Unfairness of sensitive attribute gender : 0.0121    itemcoverage@5 : 0.0558    itemcoverage@10 : 0.0888    itemcoverage@20 : 0.1527    itemcoverage@50 : 0.3202    shannonentropy@5 : 0.0198    shannonentropy@10 : 0.0142    shannonentropy@20 : 0.0094    shannonentropy@50 : 0.0052
+Thu 12 Jun 2025 16:41:12 INFO  epoch 12 training [time: 20.64s, train loss: 2109.9719]
+Thu 12 Jun 2025 16:41:40 INFO  epoch 12 evaluating [time: 27.63s, valid_score: 0.127700]
+Thu 12 Jun 2025 16:41:40 INFO  valid result: 
+ndcg@5 : 0.1277    ndcg@10 : 0.1388    ndcg@20 : 0.1587    ndcg@50 : 0.2025    recall@5 : 0.0781    recall@10 : 0.1282    recall@20 : 0.1987    recall@50 : 0.3401    hit@5 : 0.4187    hit@10 : 0.6012    hit@20 : 0.7588    hit@50 : 0.9147    mrr@5 : 0.2393    mrr@10 : 0.2633    mrr@20 : 0.2743    mrr@50 : 0.2795    precision@5 : 0.1065    precision@10 : 0.0946    precision@20 : 0.0784    precision@50 : 0.0574    map@5 : 0.0751    map@10 : 0.0687    map@20 : 0.0699    map@50 : 0.0775    Value Unfairness of sensitive attribute gender : 0.1305    Absolute Unfairness of sensitive attribute gender : 0.1066    Underestimation Unfairness of sensitive attribute gender : 0.034    Overestimation Unfairness of sensitive attribute gender : 0.0965    NonParity Unfairness of sensitive attribute gender : 0.0096    itemcoverage@5 : 0.0588    itemcoverage@10 : 0.0901    itemcoverage@20 : 0.15    itemcoverage@50 : 0.3207    shannonentropy@5 : 0.0188    shannonentropy@10 : 0.014    shannonentropy@20 : 0.0095    shannonentropy@50 : 0.0052
+Thu 12 Jun 2025 16:42:01 INFO  epoch 13 training [time: 20.69s, train loss: 2096.9940]
+Thu 12 Jun 2025 16:42:28 INFO  epoch 13 evaluating [time: 27.54s, valid_score: 0.142400]
+Thu 12 Jun 2025 16:42:28 INFO  valid result: 
+ndcg@5 : 0.1424    ndcg@10 : 0.1459    ndcg@20 : 0.1617    ndcg@50 : 0.2047    recall@5 : 0.0803    recall@10 : 0.1257    recall@20 : 0.1941    recall@50 : 0.3361    hit@5 : 0.4523    hit@10 : 0.6051    hit@20 : 0.7472    hit@50 : 0.9118    mrr@5 : 0.2694    mrr@10 : 0.2897    mrr@20 : 0.2996    mrr@50 : 0.3052    precision@5 : 0.1184    precision@10 : 0.0971    precision@20 : 0.077    precision@50 : 0.0562    map@5 : 0.0847    map@10 : 0.0736    map@20 : 0.0727    map@50 : 0.0796    Value Unfairness of sensitive attribute gender : 0.1322    Absolute Unfairness of sensitive attribute gender : 0.1069    Underestimation Unfairness of sensitive attribute gender : 0.0338    Overestimation Unfairness of sensitive attribute gender : 0.0984    NonParity Unfairness of sensitive attribute gender : 0.0061    itemcoverage@5 : 0.0561    itemcoverage@10 : 0.0882    itemcoverage@20 : 0.153    itemcoverage@50 : 0.3202    shannonentropy@5 : 0.0197    shannonentropy@10 : 0.0143    shannonentropy@20 : 0.0093    shannonentropy@50 : 0.0052
+Thu 12 Jun 2025 16:42:29 INFO  Saving current: saved/FOCF-Jun-12-2025_16-31-15.pth
+Thu 12 Jun 2025 16:42:49 INFO  epoch 14 training [time: 20.71s, train loss: 2083.5761]
+Thu 12 Jun 2025 16:43:17 INFO  epoch 14 evaluating [time: 27.61s, valid_score: 0.139800]
+Thu 12 Jun 2025 16:43:17 INFO  valid result: 
+ndcg@5 : 0.1398    ndcg@10 : 0.1433    ndcg@20 : 0.1618    ndcg@50 : 0.2066    recall@5 : 0.0798    recall@10 : 0.1251    recall@20 : 0.1972    recall@50 : 0.341    hit@5 : 0.4333    hit@10 : 0.5894    hit@20 : 0.7526    hit@50 : 0.9204    mrr@5 : 0.266    mrr@10 : 0.287    mrr@20 : 0.2984    mrr@50 : 0.304    precision@5 : 0.1135    precision@10 : 0.0922    precision@20 : 0.0755    precision@50 : 0.0566    map@5 : 0.0842    map@10 : 0.0733    map@20 : 0.0733    map@50 : 0.0806    Value Unfairness of sensitive attribute gender : 0.1333    Absolute Unfairness of sensitive attribute gender : 0.1076    Underestimation Unfairness of sensitive attribute gender : 0.0358    Overestimation Unfairness of sensitive attribute gender : 0.0975    NonParity Unfairness of sensitive attribute gender : 0.0079    itemcoverage@5 : 0.058    itemcoverage@10 : 0.0912    itemcoverage@20 : 0.1543    itemcoverage@50 : 0.3326    shannonentropy@5 : 0.019    shannonentropy@10 : 0.0138    shannonentropy@20 : 0.0093    shannonentropy@50 : 0.005
+Thu 12 Jun 2025 16:43:38 INFO  epoch 15 training [time: 20.68s, train loss: 2111.1688]
+Thu 12 Jun 2025 16:44:05 INFO  epoch 15 evaluating [time: 27.73s, valid_score: 0.127200]
+Thu 12 Jun 2025 16:44:05 INFO  valid result: 
+ndcg@5 : 0.1272    ndcg@10 : 0.1367    ndcg@20 : 0.1566    ndcg@50 : 0.2006    recall@5 : 0.0797    recall@10 : 0.1279    recall@20 : 0.1978    recall@50 : 0.3393    hit@5 : 0.4195    hit@10 : 0.5975    hit@20 : 0.7639    hit@50 : 0.9215    mrr@5 : 0.2319    mrr@10 : 0.2556    mrr@20 : 0.2673    mrr@50 : 0.2725    precision@5 : 0.1086    precision@10 : 0.0933    precision@20 : 0.0771    precision@50 : 0.0566    map@5 : 0.0745    map@10 : 0.0676    map@20 : 0.0687    map@50 : 0.0762    Value Unfairness of sensitive attribute gender : 0.1299    Absolute Unfairness of sensitive attribute gender : 0.1065    Underestimation Unfairness of sensitive attribute gender : 0.0338    Overestimation Unfairness of sensitive attribute gender : 0.0961    NonParity Unfairness of sensitive attribute gender : 0.0081    itemcoverage@5 : 0.058    itemcoverage@10 : 0.0955    itemcoverage@20 : 0.1586    itemcoverage@50 : 0.3226    shannonentropy@5 : 0.019    shannonentropy@10 : 0.0132    shannonentropy@20 : 0.009    shannonentropy@50 : 0.0052
+Thu 12 Jun 2025 16:44:26 INFO  epoch 16 training [time: 20.53s, train loss: 2157.2664]
+Thu 12 Jun 2025 16:44:54 INFO  epoch 16 evaluating [time: 27.64s, valid_score: 0.138400]
+Thu 12 Jun 2025 16:44:54 INFO  valid result: 
+ndcg@5 : 0.1384    ndcg@10 : 0.1467    ndcg@20 : 0.1631    ndcg@50 : 0.2046    recall@5 : 0.0842    recall@10 : 0.1317    recall@20 : 0.199    recall@50 : 0.3316    hit@5 : 0.4525    hit@10 : 0.6147    hit@20 : 0.7576    hit@50 : 0.9174    mrr@5 : 0.2481    mrr@10 : 0.27    mrr@20 : 0.2801    mrr@50 : 0.2854    precision@5 : 0.1197    precision@10 : 0.1005    precision@20 : 0.0779    precision@50 : 0.0567    map@5 : 0.0816    map@10 : 0.0742    map@20 : 0.0743    map@50 : 0.081    Value Unfairness of sensitive attribute gender : 0.1328    Absolute Unfairness of sensitive attribute gender : 0.1088    Underestimation Unfairness of sensitive attribute gender : 0.0337    Overestimation Unfairness of sensitive attribute gender : 0.0991    NonParity Unfairness of sensitive attribute gender : 0.0083    itemcoverage@5 : 0.058    itemcoverage@10 : 0.0941    itemcoverage@20 : 0.1559    itemcoverage@50 : 0.3267    shannonentropy@5 : 0.0191    shannonentropy@10 : 0.0134    shannonentropy@20 : 0.0092    shannonentropy@50 : 0.0051
+Thu 12 Jun 2025 16:45:13 INFO  epoch 17 training [time: 19.85s, train loss: 2166.4358]
+Thu 12 Jun 2025 16:45:41 INFO  epoch 17 evaluating [time: 27.59s, valid_score: 0.120100]
+Thu 12 Jun 2025 16:45:41 INFO  valid result: 
+ndcg@5 : 0.1201    ndcg@10 : 0.13    ndcg@20 : 0.1477    ndcg@50 : 0.1933    recall@5 : 0.0749    recall@10 : 0.1223    recall@20 : 0.1893    recall@50 : 0.3327    hit@5 : 0.4113    hit@10 : 0.5838    hit@20 : 0.7382    hit@50 : 0.9159    mrr@5 : 0.222    mrr@10 : 0.2451    mrr@20 : 0.2557    mrr@50 : 0.2616    precision@5 : 0.104    precision@10 : 0.0897    precision@20 : 0.0722    precision@50 : 0.0552    map@5 : 0.0689    map@10 : 0.063    map@20 : 0.0638    map@50 : 0.0716    Value Unfairness of sensitive attribute gender : 0.1281    Absolute Unfairness of sensitive attribute gender : 0.1049    Underestimation Unfairness of sensitive attribute gender : 0.033    Overestimation Unfairness of sensitive attribute gender : 0.0951    NonParity Unfairness of sensitive attribute gender : 0.0142    itemcoverage@5 : 0.0588    itemcoverage@10 : 0.0933    itemcoverage@20 : 0.153    itemcoverage@50 : 0.3216    shannonentropy@5 : 0.0186    shannonentropy@10 : 0.0135    shannonentropy@20 : 0.0093    shannonentropy@50 : 0.0052
+Thu 12 Jun 2025 16:46:02 INFO  epoch 18 training [time: 20.64s, train loss: 2154.7709]
+Thu 12 Jun 2025 16:46:29 INFO  epoch 18 evaluating [time: 27.55s, valid_score: 0.132800]
+Thu 12 Jun 2025 16:46:29 INFO  valid result: 
+ndcg@5 : 0.1328    ndcg@10 : 0.1371    ndcg@20 : 0.1537    ndcg@50 : 0.199    recall@5 : 0.0765    recall@10 : 0.1229    recall@20 : 0.1903    recall@50 : 0.3363    hit@5 : 0.4316    hit@10 : 0.5882    hit@20 : 0.7454    hit@50 : 0.9172    mrr@5 : 0.2508    mrr@10 : 0.2717    mrr@20 : 0.2827    mrr@50 : 0.2885    precision@5 : 0.1116    precision@10 : 0.0903    precision@20 : 0.0723    precision@50 : 0.0549    map@5 : 0.0779    map@10 : 0.0678    map@20 : 0.0675    map@50 : 0.075    Value Unfairness of sensitive attribute gender : 0.1322    Absolute Unfairness of sensitive attribute gender : 0.106    Underestimation Unfairness of sensitive attribute gender : 0.0339    Overestimation Unfairness of sensitive attribute gender : 0.0983    NonParity Unfairness of sensitive attribute gender : 0.0092    itemcoverage@5 : 0.0561    itemcoverage@10 : 0.0933    itemcoverage@20 : 0.1551    itemcoverage@50 : 0.3248    shannonentropy@5 : 0.0196    shannonentropy@10 : 0.0135    shannonentropy@20 : 0.0092    shannonentropy@50 : 0.0051
+Thu 12 Jun 2025 16:46:49 INFO  epoch 19 training [time: 20.21s, train loss: 2091.9636]
+Thu 12 Jun 2025 16:47:17 INFO  epoch 19 evaluating [time: 27.61s, valid_score: 0.134000]
+Thu 12 Jun 2025 16:47:17 INFO  valid result: 
+ndcg@5 : 0.134    ndcg@10 : 0.141    ndcg@20 : 0.1617    ndcg@50 : 0.2037    recall@5 : 0.082    recall@10 : 0.13    recall@20 : 0.2038    recall@50 : 0.3372    hit@5 : 0.4346    hit@10 : 0.6012    hit@20 : 0.7704    hit@50 : 0.9232    mrr@5 : 0.245    mrr@10 : 0.2672    mrr@20 : 0.2792    mrr@50 : 0.2843    precision@5 : 0.1134    precision@10 : 0.0944    precision@20 : 0.0786    precision@50 : 0.0574    map@5 : 0.079    map@10 : 0.0703    map@20 : 0.0715    map@50 : 0.0785    Value Unfairness of sensitive attribute gender : 0.1328    Absolute Unfairness of sensitive attribute gender : 0.1081    Underestimation Unfairness of sensitive attribute gender : 0.0333    Overestimation Unfairness of sensitive attribute gender : 0.0995    NonParity Unfairness of sensitive attribute gender : 0.0128    itemcoverage@5 : 0.0588    itemcoverage@10 : 0.0968    itemcoverage@20 : 0.1594    itemcoverage@50 : 0.3296    shannonentropy@5 : 0.0188    shannonentropy@10 : 0.013    shannonentropy@20 : 0.009    shannonentropy@50 : 0.005
+Thu 12 Jun 2025 16:47:38 INFO  epoch 20 training [time: 20.65s, train loss: 2113.1003]
+Thu 12 Jun 2025 16:48:05 INFO  epoch 20 evaluating [time: 27.76s, valid_score: 0.126700]
+Thu 12 Jun 2025 16:48:05 INFO  valid result: 
+ndcg@5 : 0.1267    ndcg@10 : 0.1332    ndcg@20 : 0.1523    ndcg@50 : 0.1957    recall@5 : 0.0758    recall@10 : 0.1223    recall@20 : 0.1929    recall@50 : 0.3331    hit@5 : 0.4141    hit@10 : 0.5775    hit@20 : 0.7498    hit@50 : 0.9185    mrr@5 : 0.2341    mrr@10 : 0.2557    mrr@20 : 0.2677    mrr@50 : 0.2733    precision@5 : 0.108    precision@10 : 0.0904    precision@20 : 0.0748    precision@50 : 0.0554    map@5 : 0.0741    map@10 : 0.0654    map@20 : 0.0659    map@50 : 0.0729    Value Unfairness of sensitive attribute gender : 0.1322    Absolute Unfairness of sensitive attribute gender : 0.1068    Underestimation Unfairness of sensitive attribute gender : 0.0356    Overestimation Unfairness of sensitive attribute gender : 0.0966    NonParity Unfairness of sensitive attribute gender : 0.0065    itemcoverage@5 : 0.0604    itemcoverage@10 : 0.0944    itemcoverage@20 : 0.1562    itemcoverage@50 : 0.3267    shannonentropy@5 : 0.0182    shannonentropy@10 : 0.0134    shannonentropy@20 : 0.0092    shannonentropy@50 : 0.0051
+Thu 12 Jun 2025 16:48:25 INFO  epoch 21 training [time: 19.65s, train loss: 2112.5145]
+Thu 12 Jun 2025 16:48:53 INFO  epoch 21 evaluating [time: 27.57s, valid_score: 0.121500]
+Thu 12 Jun 2025 16:48:53 INFO  valid result: 
+ndcg@5 : 0.1215    ndcg@10 : 0.1283    ndcg@20 : 0.1468    ndcg@50 : 0.1922    recall@5 : 0.0719    recall@10 : 0.1183    recall@20 : 0.1844    recall@50 : 0.3307    hit@5 : 0.4041    hit@10 : 0.5702    hit@20 : 0.7411    hit@50 : 0.9154    mrr@5 : 0.2252    mrr@10 : 0.2474    mrr@20 : 0.2593    mrr@50 : 0.2652    precision@5 : 0.1041    precision@10 : 0.087    precision@20 : 0.0727    precision@50 : 0.0552    map@5 : 0.0707    map@10 : 0.0624    map@20 : 0.0629    map@50 : 0.0705    Value Unfairness of sensitive attribute gender : 0.1302    Absolute Unfairness of sensitive attribute gender : 0.1057    Underestimation Unfairness of sensitive attribute gender : 0.0335    Overestimation Unfairness of sensitive attribute gender : 0.0967    NonParity Unfairness of sensitive attribute gender : 0.008    itemcoverage@5 : 0.0593    itemcoverage@10 : 0.0947    itemcoverage@20 : 0.1548    itemcoverage@50 : 0.3229    shannonentropy@5 : 0.0187    shannonentropy@10 : 0.0133    shannonentropy@20 : 0.0092    shannonentropy@50 : 0.0052
+Thu 12 Jun 2025 16:49:13 INFO  epoch 22 training [time: 20.35s, train loss: 2091.8517]
+Thu 12 Jun 2025 16:49:41 INFO  epoch 22 evaluating [time: 27.80s, valid_score: 0.108600]
+Thu 12 Jun 2025 16:49:41 INFO  valid result: 
+ndcg@5 : 0.1086    ndcg@10 : 0.1218    ndcg@20 : 0.1438    ndcg@50 : 0.191    recall@5 : 0.0692    recall@10 : 0.1186    recall@20 : 0.1899    recall@50 : 0.3374    hit@5 : 0.3795    hit@10 : 0.5647    hit@20 : 0.7381    hit@50 : 0.9172    mrr@5 : 0.2018    mrr@10 : 0.2265    mrr@20 : 0.2385    mrr@50 : 0.2445    precision@5 : 0.0932    precision@10 : 0.0848    precision@20 : 0.0728    precision@50 : 0.0562    map@5 : 0.0617    map@10 : 0.0579    map@20 : 0.0603    map@50 : 0.0686    Value Unfairness of sensitive attribute gender : 0.1313    Absolute Unfairness of sensitive attribute gender : 0.1069    Underestimation Unfairness of sensitive attribute gender : 0.0352    Overestimation Unfairness of sensitive attribute gender : 0.0961    NonParity Unfairness of sensitive attribute gender : 0.007    itemcoverage@5 : 0.0585    itemcoverage@10 : 0.0963    itemcoverage@20 : 0.1594    itemcoverage@50 : 0.3278    shannonentropy@5 : 0.0189    shannonentropy@10 : 0.0131    shannonentropy@20 : 0.009    shannonentropy@50 : 0.0051
+Thu 12 Jun 2025 16:50:01 INFO  epoch 23 training [time: 20.72s, train loss: 2056.7726]
+Thu 12 Jun 2025 16:50:29 INFO  epoch 23 evaluating [time: 27.57s, valid_score: 0.120200]
+Thu 12 Jun 2025 16:50:29 INFO  valid result: 
+ndcg@5 : 0.1202    ndcg@10 : 0.1305    ndcg@20 : 0.1503    ndcg@50 : 0.1955    recall@5 : 0.0741    recall@10 : 0.1217    recall@20 : 0.1916    recall@50 : 0.3356    hit@5 : 0.399    hit@10 : 0.5689    hit@20 : 0.7411    hit@50 : 0.92    mrr@5 : 0.2229    mrr@10 : 0.2454    mrr@20 : 0.2575    mrr@50 : 0.2634    precision@5 : 0.1019    precision@10 : 0.0894    precision@20 : 0.0744    precision@50 : 0.0562    map@5 : 0.0698    map@10 : 0.064    map@20 : 0.0652    map@50 : 0.0726    Value Unfairness of sensitive attribute gender : 0.1317    Absolute Unfairness of sensitive attribute gender : 0.1063    Underestimation Unfairness of sensitive attribute gender : 0.0353    Overestimation Unfairness of sensitive attribute gender : 0.0964    NonParity Unfairness of sensitive attribute gender : 0.0047    itemcoverage@5 : 0.062    itemcoverage@10 : 0.0944    itemcoverage@20 : 0.1583    itemcoverage@50 : 0.3237    shannonentropy@5 : 0.0178    shannonentropy@10 : 0.0134    shannonentropy@20 : 0.009    shannonentropy@50 : 0.0051
+Thu 12 Jun 2025 16:50:49 INFO  epoch 24 training [time: 20.36s, train loss: 2098.7744]
+Thu 12 Jun 2025 16:51:17 INFO  epoch 24 evaluating [time: 27.72s, valid_score: 0.125000]
+Thu 12 Jun 2025 16:51:17 INFO  valid result: 
+ndcg@5 : 0.125    ndcg@10 : 0.1314    ndcg@20 : 0.1497    ndcg@50 : 0.1948    recall@5 : 0.0744    recall@10 : 0.1197    recall@20 : 0.1887    recall@50 : 0.3336    hit@5 : 0.419    hit@10 : 0.5776    hit@20 : 0.7338    hit@50 : 0.9139    mrr@5 : 0.2286    mrr@10 : 0.2498    mrr@20 : 0.2607    mrr@50 : 0.2666    precision@5 : 0.1083    precision@10 : 0.0897    precision@20 : 0.0733    precision@50 : 0.0553    map@5 : 0.0726    map@10 : 0.0647    map@20 : 0.0652    map@50 : 0.0727    Value Unfairness of sensitive attribute gender : 0.1296    Absolute Unfairness of sensitive attribute gender : 0.106    Underestimation Unfairness of sensitive attribute gender : 0.0331    Overestimation Unfairness of sensitive attribute gender : 0.0965    NonParity Unfairness of sensitive attribute gender : 0.0085    itemcoverage@5 : 0.0599    itemcoverage@10 : 0.0958    itemcoverage@20 : 0.1586    itemcoverage@50 : 0.3213    shannonentropy@5 : 0.0186    shannonentropy@10 : 0.0132    shannonentropy@20 : 0.009    shannonentropy@50 : 0.0052
+Thu 12 Jun 2025 16:51:17 INFO  Finished training, best eval result in epoch 13
+Thu 12 Jun 2025 16:51:17 INFO  Loading model structure and parameters from saved/FOCF-Jun-12-2025_16-31-15.pth
+Thu 12 Jun 2025 16:51:45 INFO  best valid : OrderedDict([('ndcg@5', 0.1424), ('ndcg@10', 0.1459), ('ndcg@20', 0.1617), ('ndcg@50', 0.2047), ('recall@5', 0.0803), ('recall@10', 0.1257), ('recall@20', 0.1941), ('recall@50', 0.3361), ('hit@5', 0.4523), ('hit@10', 0.6051), ('hit@20', 0.7472), ('hit@50', 0.9118), ('mrr@5', 0.2694), ('mrr@10', 0.2897), ('mrr@20', 0.2996), ('mrr@50', 0.3052), ('precision@5', 0.1184), ('precision@10', 0.0971), ('precision@20', 0.077), ('precision@50', 0.0562), ('map@5', 0.0847), ('map@10', 0.0736), ('map@20', 0.0727), ('map@50', 0.0796), ('Value Unfairness of sensitive attribute gender', 0.1322), ('Absolute Unfairness of sensitive attribute gender', 0.1069), ('Underestimation Unfairness of sensitive attribute gender', 0.0338), ('Overestimation Unfairness of sensitive attribute gender', 0.0984), ('NonParity Unfairness of sensitive attribute gender', 0.0061), ('itemcoverage@5', 0.0561), ('itemcoverage@10', 0.0882), ('itemcoverage@20', 0.153), ('itemcoverage@50', 0.3202), ('shannonentropy@5', 0.0197), ('shannonentropy@10', 0.0143), ('shannonentropy@20', 0.0093), ('shannonentropy@50', 0.0052)])
+Thu 12 Jun 2025 16:51:45 INFO  test result: OrderedDict([('ndcg@5', 0.1524), ('ndcg@10', 0.1538), ('ndcg@20', 0.1676), ('ndcg@50', 0.2107), ('recall@5', 0.0817), ('recall@10', 0.1283), ('recall@20', 0.1971), ('recall@50', 0.3426), ('hit@5', 0.4606), ('hit@10', 0.6022), ('hit@20', 0.7507), ('hit@50', 0.9159), ('mrr@5', 0.2846), ('mrr@10', 0.3035), ('mrr@20', 0.314), ('mrr@50', 0.3194), ('precision@5', 0.1262), ('precision@10', 0.1022), ('precision@20', 0.0793), ('precision@50', 0.0577), ('map@5', 0.0928), ('map@10', 0.0793), ('map@20', 0.0767), ('map@50', 0.0831), ('Value Unfairness of sensitive attribute gender', 0.1323), ('Absolute Unfairness of sensitive attribute gender', 0.1078), ('Underestimation Unfairness of sensitive attribute gender', 0.0351), ('Overestimation Unfairness of sensitive attribute gender', 0.0972), ('NonParity Unfairness of sensitive attribute gender', 0.0059), ('itemcoverage@5', 0.0583), ('itemcoverage@10', 0.0906), ('itemcoverage@20', 0.15), ('itemcoverage@50', 0.3275), ('shannonentropy@5', 0.0191), ('shannonentropy@10', 0.014), ('shannonentropy@20', 0.0096), ('shannonentropy@50', 0.0051)])

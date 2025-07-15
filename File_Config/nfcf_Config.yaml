@@ -1,0 +1,41 @@
+model: NFCF
+
+dataset: ml-1M
+field_separator: "\t"
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+LABEL_FIELD: label
+TIME_FIELD: timestamp
+threshold: {'rating' : 3.0}
+
+load_col:
+  inter: [user_id, item_id, rating, timestamp]
+  user: [user_id, gender]
+
+embedding_size: 64
+mlp_hidden_size: [128, 64]
+dropout: 0.2
+sst_attr_list: ['gender']
+fair_weight: 1.0
+load_pretrain_path: saved/NFCF-Jun-13-2025_08-15-39.pth
+
+epochs: 100
+learning_rate: 0.001
+train_batch_size: 512
+eval_batch_size: 8192
+stopping_step: 10
+weight_decay: 0.0001
+
+eval_args:
+  split: {'RS': [8, 1, 1]}
+  group_by: user
+  order: RO
+  mode: uni100
+metrics: [
+  "NDCG", "Recall", "Hit", "MRR", "Precision", "MAP",
+  "DifferentialFairness", "ValueUnfairness", "NonParityUnfairness",
+  "ItemCoverage", "ShannonEntropy"
+]
+valid_metric: NDCG@5
+topk: [5, 10, 20, 50]
+popularity_ratio: 0.1

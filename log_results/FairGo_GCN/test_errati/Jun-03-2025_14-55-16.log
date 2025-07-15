@@ -1,0 +1,285 @@
+Tue 03 Jun 2025 14:55:16 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = dataset/ml-1M
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 300
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+neg_sampling = {'uniform': 1}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'RS': [8, 1, 1]}, 'group_by': 'user', 'order': 'RO', 'mode': 'uni100'}
+repeatable = False
+metrics = ['NDCG', 'Recall', 'Precision']
+topk = [5, 10, 20, 50]
+valid_metric = NDCG@5
+valid_metric_bigger = True
+eval_batch_size = 1024
+metric_decimal_place = 4
+
+Dataset Hyper Parameters:
+LABEL_FIELD = label
+threshold = {'rating': 3.0}
+TIME_FIELD = timestamp
+load_col = {'inter': ['user_id', 'item_id', 'rating', 'timestamp'], 'user': ['user_id', 'gender']}
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+seq_len = None
+NEG_PREFIX = neg_
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [0,inf)
+item_inter_num_interval = [0,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = None
+
+Other Hyper Parameters: 
+wandb_project = recbole
+require_pow = False
+save_sst_embed = True
+sst_attr_list = ['gender']
+aggr_method = LBA
+vs_weights = [1]
+embedding_size = 32
+n_layers = 1
+dis_hidden_size_list = [8, 4]
+filter_hidden_size_list = [64]
+activation = leakyrelu
+fair_weight = 10
+gcn_n_layers = 1
+hidden_channels = 16
+gcn_dropout = 0.2
+gcn_act = relu
+pretrain_epochs = 10
+train_epoch_interval = 5
+popularity_ratio = 0.1
+MODEL_TYPE = ModelType.GENERAL
+2save_sst_embed = True
+pretrain_model_file_path = None
+load_pretrain_weight = False
+device = cuda
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+train_neg_sample_args = {'strategy': 'by', 'by': 1, 'distribution': 'uniform', 'dynamic': 'none'}
+eval_neg_sample_args = {'strategy': 'by', 'by': 100, 'distribution': 'uniform'}
+
+
+Tue 03 Jun 2025 14:55:23 INFO  ml-1M
+The number of users: 6041
+Average actions of users: 165.5975165562914
+The number of items: 3707
+Average actions of items: 269.88909875876953
+The number of inters: 1000209
+The sparsity of the dataset: 95.53358229599758%
+Remain Fields: ['user_id', 'item_id', 'rating', 'timestamp', 'gender', 'label']
+Tue 03 Jun 2025 14:55:26 INFO  [Training]: train_batch_size = [2048] negative sampling: [{'uniform': 1}]
+Tue 03 Jun 2025 14:55:26 INFO  [Evaluation]: eval_batch_size = [1024] eval_args: [{'split': {'RS': [8, 1, 1]}, 'group_by': 'user', 'order': 'RO', 'mode': 'uni100'}]
+Tue 03 Jun 2025 14:55:31 INFO  FairGo_GCN(
+  (gcn): GCN(32, 32, num_layers=1)
+  (user_embedding_layer): Embedding(6041, 32, padding_idx=0)
+  (item_embedding_layer): Embedding(3707, 32, padding_idx=0)
+  (aggr_layer): Sequential(
+    (0): Linear(in_features=32, out_features=32, bias=True)
+    (1): LeakyReLU(negative_slope=0.01)
+    (2): Linear(in_features=32, out_features=32, bias=True)
+    (3): LeakyReLU(negative_slope=0.01)
+    (4): Linear(in_features=32, out_features=32, bias=True)
+  )
+  (bin_dis_fun): BCELoss()
+  (multi_dis_fun): CrossEntropyLoss()
+  (mse_loss_fun): MSELoss()
+  (sigmoid): Sigmoid()
+)
+Trainable parameters: 316160
+Tue 03 Jun 2025 14:55:31 INFO  Model Pretrain
+Tue 03 Jun 2025 14:55:47 INFO  epoch 0 training [time: 15.77s, train loss: 1908.2889]
+Tue 03 Jun 2025 15:01:42 INFO  epoch 0 evaluating [time: 355.07s, valid_score: 0.115200]
+Tue 03 Jun 2025 15:01:42 INFO  valid result: 
+ndcg@5 : 0.1152    ndcg@10 : 0.1274    ndcg@20 : 0.1457    ndcg@50 : 0.1824    recall@5 : 0.0759    recall@10 : 0.1215    recall@20 : 0.1832    recall@50 : 0.2997    precision@5 : 0.1011    precision@10 : 0.0894    precision@20 : 0.0727    precision@50 : 0.0513
+Tue 03 Jun 2025 15:01:42 INFO  Saving current best: saved/FairGo_GCN-ml-1M-pretrain.pth
+Tue 03 Jun 2025 15:01:58 INFO  epoch 1 training [time: 16.46s, train loss: 900.6355]
+Tue 03 Jun 2025 15:07:53 INFO  epoch 1 evaluating [time: 355.07s, valid_score: 0.130100]
+Tue 03 Jun 2025 15:07:53 INFO  valid result: 
+ndcg@5 : 0.1301    ndcg@10 : 0.1435    ndcg@20 : 0.1617    ndcg@50 : 0.1951    recall@5 : 0.086    recall@10 : 0.1361    recall@20 : 0.1997    recall@50 : 0.3054    precision@5 : 0.116    precision@10 : 0.1022    precision@20 : 0.0817    precision@50 : 0.0556
+Tue 03 Jun 2025 15:07:53 INFO  Saving current best: saved/FairGo_GCN-ml-1M-pretrain.pth
+Tue 03 Jun 2025 15:08:10 INFO  epoch 2 training [time: 16.38s, train loss: 873.7243]
+Tue 03 Jun 2025 15:14:05 INFO  epoch 2 evaluating [time: 355.18s, valid_score: 0.136800]
+Tue 03 Jun 2025 15:14:05 INFO  valid result: 
+ndcg@5 : 0.1368    ndcg@10 : 0.1456    ndcg@20 : 0.1623    ndcg@50 : 0.1959    recall@5 : 0.0854    recall@10 : 0.1347    recall@20 : 0.1966    recall@50 : 0.3039    precision@5 : 0.1208    precision@10 : 0.1018    precision@20 : 0.0816    precision@50 : 0.0562
+Tue 03 Jun 2025 15:14:05 INFO  Saving current best: saved/FairGo_GCN-ml-1M-pretrain.pth
+Tue 03 Jun 2025 15:14:21 INFO  epoch 3 training [time: 16.40s, train loss: 854.5114]
+Tue 03 Jun 2025 15:20:16 INFO  epoch 3 evaluating [time: 354.63s, valid_score: 0.147100]
+Tue 03 Jun 2025 15:20:16 INFO  valid result: 
+ndcg@5 : 0.1471    ndcg@10 : 0.1539    ndcg@20 : 0.1697    ndcg@50 : 0.2006    recall@5 : 0.0854    recall@10 : 0.1335    recall@20 : 0.1979    recall@50 : 0.3015    precision@5 : 0.1264    precision@10 : 0.1072    precision@20 : 0.0863    precision@50 : 0.0586
+Tue 03 Jun 2025 15:20:16 INFO  Saving current best: saved/FairGo_GCN-ml-1M-pretrain.pth
+Tue 03 Jun 2025 15:20:32 INFO  epoch 4 training [time: 16.38s, train loss: 838.8072]
+Tue 03 Jun 2025 15:26:27 INFO  epoch 4 evaluating [time: 354.62s, valid_score: 0.138200]
+Tue 03 Jun 2025 15:26:27 INFO  valid result: 
+ndcg@5 : 0.1382    ndcg@10 : 0.147    ndcg@20 : 0.1617    ndcg@50 : 0.1929    recall@5 : 0.0797    recall@10 : 0.1301    recall@20 : 0.1917    recall@50 : 0.2955    precision@5 : 0.1217    precision@10 : 0.1058    precision@20 : 0.085    precision@50 : 0.0586
+Tue 03 Jun 2025 15:26:43 INFO  epoch 5 training [time: 16.21s, train loss: 828.0192]
+Tue 03 Jun 2025 15:32:38 INFO  epoch 5 evaluating [time: 354.73s, valid_score: 0.144800]
+Tue 03 Jun 2025 15:32:38 INFO  valid result: 
+ndcg@5 : 0.1448    ndcg@10 : 0.1505    ndcg@20 : 0.1631    ndcg@50 : 0.1955    recall@5 : 0.0807    recall@10 : 0.1287    recall@20 : 0.1867    recall@50 : 0.2957    precision@5 : 0.1276    precision@10 : 0.108    precision@20 : 0.086    precision@50 : 0.0597
+Tue 03 Jun 2025 15:32:54 INFO  epoch 6 training [time: 16.32s, train loss: 820.2208]
+Tue 03 Jun 2025 15:38:49 INFO  epoch 6 evaluating [time: 354.90s, valid_score: 0.147800]
+Tue 03 Jun 2025 15:38:49 INFO  valid result: 
+ndcg@5 : 0.1478    ndcg@10 : 0.1512    ndcg@20 : 0.1639    ndcg@50 : 0.1937    recall@5 : 0.0809    recall@10 : 0.1253    recall@20 : 0.186    recall@50 : 0.2879    precision@5 : 0.129    precision@10 : 0.1078    precision@20 : 0.086    precision@50 : 0.0588
+Tue 03 Jun 2025 15:38:49 INFO  Saving current best: saved/FairGo_GCN-ml-1M-pretrain.pth
+Tue 03 Jun 2025 15:39:06 INFO  epoch 7 training [time: 16.39s, train loss: 814.2606]
+Tue 03 Jun 2025 15:45:01 INFO  epoch 7 evaluating [time: 355.02s, valid_score: 0.154600]
+Tue 03 Jun 2025 15:45:01 INFO  valid result: 
+ndcg@5 : 0.1546    ndcg@10 : 0.1569    ndcg@20 : 0.1677    ndcg@50 : 0.198    recall@5 : 0.083    recall@10 : 0.1276    recall@20 : 0.186    recall@50 : 0.2911    precision@5 : 0.134    precision@10 : 0.1114    precision@20 : 0.0878    precision@50 : 0.0602
+Tue 03 Jun 2025 15:45:01 INFO  Saving current best: saved/FairGo_GCN-ml-1M-pretrain.pth
+Tue 03 Jun 2025 15:45:17 INFO  epoch 8 training [time: 16.34s, train loss: 810.2696]
+Tue 03 Jun 2025 15:51:12 INFO  epoch 8 evaluating [time: 354.61s, valid_score: 0.173500]
+Tue 03 Jun 2025 15:51:12 INFO  valid result: 
+ndcg@5 : 0.1735    ndcg@10 : 0.1766    ndcg@20 : 0.1881    ndcg@50 : 0.2188    recall@5 : 0.0933    recall@10 : 0.144    recall@20 : 0.208    recall@50 : 0.3148    precision@5 : 0.15    precision@10 : 0.1249    precision@20 : 0.0965    precision@50 : 0.0648
+Tue 03 Jun 2025 15:51:12 INFO  Saving current best: saved/FairGo_GCN-ml-1M-pretrain.pth
+Tue 03 Jun 2025 15:51:28 INFO  epoch 9 training [time: 16.32s, train loss: 806.1977]
+Tue 03 Jun 2025 15:57:22 INFO  epoch 9 evaluating [time: 354.36s, valid_score: 0.183400]
+Tue 03 Jun 2025 15:57:22 INFO  valid result: 
+ndcg@5 : 0.1834    ndcg@10 : 0.1842    ndcg@20 : 0.1948    ndcg@50 : 0.227    recall@5 : 0.098    recall@10 : 0.1498    recall@20 : 0.2132    recall@50 : 0.3239    precision@5 : 0.1577    precision@10 : 0.1286    precision@20 : 0.0989    precision@50 : 0.067
+Tue 03 Jun 2025 15:57:22 INFO  Saving current best: saved/FairGo_GCN-ml-1M-pretrain.pth
+Tue 03 Jun 2025 15:57:24 INFO  Train Filter
+Tue 03 Jun 2025 15:57:41 INFO  Train Discriminator
+Tue 03 Jun 2025 15:57:57 INFO  epoch 0 training [time: 33.34s, train_loss1: 1101.8398, train_loss2: -12215.0762]
+Tue 03 Jun 2025 15:58:25 INFO  epoch 0 evaluating [time: 28.00s, valid_score: 0.030700]
+Tue 03 Jun 2025 15:58:25 INFO  valid result: 
+ndcg@5 : 0.0307    ndcg@10 : 0.0359    ndcg@20 : 0.0472    ndcg@50 : 0.0738    recall@5 : 0.023    recall@10 : 0.0395    recall@20 : 0.0723    recall@50 : 0.156    precision@5 : 0.0274    precision@10 : 0.0249    precision@20 : 0.0233    precision@50 : 0.0211
+Tue 03 Jun 2025 15:58:25 INFO  Saving current: saved/FairGo_GCN-Jun-03-2025_14-55-31.pth
+Tue 03 Jun 2025 15:58:25 INFO  Train Discriminator
+Tue 03 Jun 2025 15:58:43 INFO  epoch 1 training [time: 17.30s, train_loss1: 953.1200, train_loss2: 0.0000]
+Tue 03 Jun 2025 15:59:10 INFO  epoch 1 evaluating [time: 27.87s, valid_score: 0.031800]
+Tue 03 Jun 2025 15:59:10 INFO  valid result: 
+ndcg@5 : 0.0318    ndcg@10 : 0.0368    ndcg@20 : 0.0481    ndcg@50 : 0.0751    recall@5 : 0.023    recall@10 : 0.0388    recall@20 : 0.0719    recall@50 : 0.157    precision@5 : 0.0274    precision@10 : 0.0251    precision@20 : 0.0233    precision@50 : 0.0212
+Tue 03 Jun 2025 15:59:10 INFO  Saving current: saved/FairGo_GCN-Jun-03-2025_14-55-31.pth
+Tue 03 Jun 2025 15:59:10 INFO  Train Discriminator
+Tue 03 Jun 2025 15:59:28 INFO  epoch 2 training [time: 17.32s, train_loss1: 879.9535, train_loss2: 0.0000]
+Tue 03 Jun 2025 15:59:56 INFO  epoch 2 evaluating [time: 27.89s, valid_score: 0.030500]
+Tue 03 Jun 2025 15:59:56 INFO  valid result: 
+ndcg@5 : 0.0305    ndcg@10 : 0.036    ndcg@20 : 0.0473    ndcg@50 : 0.0742    recall@5 : 0.0228    recall@10 : 0.0395    recall@20 : 0.0723    recall@50 : 0.1567    precision@5 : 0.0266    precision@10 : 0.0248    precision@20 : 0.0232    precision@50 : 0.0211
+Tue 03 Jun 2025 15:59:56 INFO  Train Discriminator
+Tue 03 Jun 2025 16:00:13 INFO  epoch 3 training [time: 17.35s, train_loss1: 879.5891, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:00:42 INFO  epoch 3 evaluating [time: 29.30s, valid_score: 0.031300]
+Tue 03 Jun 2025 16:00:42 INFO  valid result: 
+ndcg@5 : 0.0313    ndcg@10 : 0.0365    ndcg@20 : 0.0475    ndcg@50 : 0.0742    recall@5 : 0.0227    recall@10 : 0.0397    recall@20 : 0.0717    recall@50 : 0.1561    precision@5 : 0.0276    precision@10 : 0.0252    precision@20 : 0.0233    precision@50 : 0.0211
+Tue 03 Jun 2025 16:00:42 INFO  Train Discriminator
+Tue 03 Jun 2025 16:01:00 INFO  epoch 4 training [time: 17.50s, train_loss1: 879.3434, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:01:28 INFO  epoch 4 evaluating [time: 27.99s, valid_score: 0.030900]
+Tue 03 Jun 2025 16:01:28 INFO  valid result: 
+ndcg@5 : 0.0309    ndcg@10 : 0.0361    ndcg@20 : 0.0475    ndcg@50 : 0.0742    recall@5 : 0.0224    recall@10 : 0.0392    recall@20 : 0.0716    recall@50 : 0.1562    precision@5 : 0.027    precision@10 : 0.0247    precision@20 : 0.0233    precision@50 : 0.0211
+Tue 03 Jun 2025 16:01:28 INFO  Train Filter
+Tue 03 Jun 2025 16:01:47 INFO  Train Discriminator
+Tue 03 Jun 2025 16:02:05 INFO  epoch 5 training [time: 37.04s, train_loss1: 1406.9756, train_loss2: -52340.3711]
+Tue 03 Jun 2025 16:02:33 INFO  epoch 5 evaluating [time: 27.91s, valid_score: 0.081700]
+Tue 03 Jun 2025 16:02:33 INFO  valid result: 
+ndcg@5 : 0.0817    ndcg@10 : 0.0969    ndcg@20 : 0.1214    ndcg@50 : 0.1743    recall@5 : 0.0564    recall@10 : 0.1034    recall@20 : 0.1755    recall@50 : 0.3323    precision@5 : 0.0722    precision@10 : 0.0681    precision@20 : 0.0622    precision@50 : 0.0541
+Tue 03 Jun 2025 16:02:33 INFO  Saving current: saved/FairGo_GCN-Jun-03-2025_14-55-31.pth
+Tue 03 Jun 2025 16:02:33 INFO  Train Discriminator
+Tue 03 Jun 2025 16:02:50 INFO  epoch 6 training [time: 17.41s, train_loss1: 949.9747, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:03:18 INFO  epoch 6 evaluating [time: 28.03s, valid_score: 0.082100]
+Tue 03 Jun 2025 16:03:18 INFO  valid result: 
+ndcg@5 : 0.0821    ndcg@10 : 0.097    ndcg@20 : 0.1215    ndcg@50 : 0.1748    recall@5 : 0.0556    recall@10 : 0.1029    recall@20 : 0.175    recall@50 : 0.3324    precision@5 : 0.0726    precision@10 : 0.0679    precision@20 : 0.062    precision@50 : 0.0542
+Tue 03 Jun 2025 16:03:18 INFO  Saving current: saved/FairGo_GCN-Jun-03-2025_14-55-31.pth
+Tue 03 Jun 2025 16:03:18 INFO  Train Discriminator
+Tue 03 Jun 2025 16:03:35 INFO  epoch 7 training [time: 17.13s, train_loss1: 874.2128, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:04:03 INFO  epoch 7 evaluating [time: 27.98s, valid_score: 0.081700]
+Tue 03 Jun 2025 16:04:03 INFO  valid result: 
+ndcg@5 : 0.0817    ndcg@10 : 0.0969    ndcg@20 : 0.1214    ndcg@50 : 0.1748    recall@5 : 0.0555    recall@10 : 0.1032    recall@20 : 0.1749    recall@50 : 0.3337    precision@5 : 0.0726    precision@10 : 0.0683    precision@20 : 0.0624    precision@50 : 0.0543
+Tue 03 Jun 2025 16:04:03 INFO  Train Discriminator
+Tue 03 Jun 2025 16:04:19 INFO  epoch 8 training [time: 15.78s, train_loss1: 872.0753, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:04:47 INFO  epoch 8 evaluating [time: 28.35s, valid_score: 0.081500]
+Tue 03 Jun 2025 16:04:47 INFO  valid result: 
+ndcg@5 : 0.0815    ndcg@10 : 0.0968    ndcg@20 : 0.1219    ndcg@50 : 0.1755    recall@5 : 0.0557    recall@10 : 0.1027    recall@20 : 0.1764    recall@50 : 0.3348    precision@5 : 0.0717    precision@10 : 0.068    precision@20 : 0.0622    precision@50 : 0.0544
+Tue 03 Jun 2025 16:04:47 INFO  Train Discriminator
+Tue 03 Jun 2025 16:05:05 INFO  epoch 9 training [time: 17.42s, train_loss1: 872.0477, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:05:34 INFO  epoch 9 evaluating [time: 29.01s, valid_score: 0.080800]
+Tue 03 Jun 2025 16:05:34 INFO  valid result: 
+ndcg@5 : 0.0808    ndcg@10 : 0.0957    ndcg@20 : 0.1201    ndcg@50 : 0.1736    recall@5 : 0.0557    recall@10 : 0.1013    recall@20 : 0.1745    recall@50 : 0.3327    precision@5 : 0.0722    precision@10 : 0.0682    precision@20 : 0.0618    precision@50 : 0.0541
+Tue 03 Jun 2025 16:05:34 INFO  Train Filter
+Tue 03 Jun 2025 16:05:53 INFO  Train Discriminator
+Tue 03 Jun 2025 16:06:10 INFO  epoch 10 training [time: 36.40s, train_loss1: 879.6231, train_loss2: -7410.2346]
+Tue 03 Jun 2025 16:06:39 INFO  epoch 10 evaluating [time: 28.35s, valid_score: 0.038100]
+Tue 03 Jun 2025 16:06:39 INFO  valid result: 
+ndcg@5 : 0.0381    ndcg@10 : 0.0436    ndcg@20 : 0.0562    ndcg@50 : 0.0835    recall@5 : 0.0252    recall@10 : 0.0465    recall@20 : 0.0835    recall@50 : 0.1708    precision@5 : 0.032    precision@10 : 0.029    precision@20 : 0.0278    precision@50 : 0.0242
+Tue 03 Jun 2025 16:06:39 INFO  Train Discriminator
+Tue 03 Jun 2025 16:06:56 INFO  epoch 11 training [time: 17.38s, train_loss1: 875.1592, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:07:24 INFO  epoch 11 evaluating [time: 27.91s, valid_score: 0.038000]
+Tue 03 Jun 2025 16:07:24 INFO  valid result: 
+ndcg@5 : 0.038    ndcg@10 : 0.0439    ndcg@20 : 0.0561    ndcg@50 : 0.0833    recall@5 : 0.024    recall@10 : 0.0464    recall@20 : 0.0824    recall@50 : 0.1688    precision@5 : 0.0313    precision@10 : 0.029    precision@20 : 0.0276    precision@50 : 0.024
+Tue 03 Jun 2025 16:07:24 INFO  Train Discriminator
+Tue 03 Jun 2025 16:07:41 INFO  epoch 12 training [time: 16.97s, train_loss1: 874.6972, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:08:09 INFO  epoch 12 evaluating [time: 28.01s, valid_score: 0.037900]
+Tue 03 Jun 2025 16:08:09 INFO  valid result: 
+ndcg@5 : 0.0379    ndcg@10 : 0.0437    ndcg@20 : 0.0561    ndcg@50 : 0.0837    recall@5 : 0.0243    recall@10 : 0.0458    recall@20 : 0.0829    recall@50 : 0.1702    precision@5 : 0.0312    precision@10 : 0.0288    precision@20 : 0.0274    precision@50 : 0.0242
+Tue 03 Jun 2025 16:08:09 INFO  Train Discriminator
+Tue 03 Jun 2025 16:08:26 INFO  epoch 13 training [time: 16.81s, train_loss1: 874.1732, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:08:55 INFO  epoch 13 evaluating [time: 29.21s, valid_score: 0.039200]
+Tue 03 Jun 2025 16:08:55 INFO  valid result: 
+ndcg@5 : 0.0392    ndcg@10 : 0.0446    ndcg@20 : 0.0569    ndcg@50 : 0.084    recall@5 : 0.0256    recall@10 : 0.0465    recall@20 : 0.0833    recall@50 : 0.169    precision@5 : 0.0323    precision@10 : 0.0292    precision@20 : 0.0275    precision@50 : 0.0241
+Tue 03 Jun 2025 16:08:55 INFO  Train Discriminator
+Tue 03 Jun 2025 16:09:12 INFO  epoch 14 training [time: 17.35s, train_loss1: 873.6941, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:09:40 INFO  epoch 14 evaluating [time: 28.01s, valid_score: 0.039300]
+Tue 03 Jun 2025 16:09:40 INFO  valid result: 
+ndcg@5 : 0.0393    ndcg@10 : 0.0439    ndcg@20 : 0.0561    ndcg@50 : 0.0834    recall@5 : 0.0257    recall@10 : 0.0457    recall@20 : 0.0825    recall@50 : 0.1688    precision@5 : 0.0331    precision@10 : 0.029    precision@20 : 0.0273    precision@50 : 0.0241
+Tue 03 Jun 2025 16:09:40 INFO  Train Filter
+Tue 03 Jun 2025 16:09:59 INFO  Train Discriminator
+Tue 03 Jun 2025 16:10:17 INFO  epoch 15 training [time: 36.46s, train_loss1: 880.0761, train_loss2: -7755.3927]
+Tue 03 Jun 2025 16:10:45 INFO  epoch 15 evaluating [time: 28.04s, valid_score: 0.036300]
+Tue 03 Jun 2025 16:10:45 INFO  valid result: 
+ndcg@5 : 0.0363    ndcg@10 : 0.0438    ndcg@20 : 0.0551    ndcg@50 : 0.0801    recall@5 : 0.0253    recall@10 : 0.0465    recall@20 : 0.0808    recall@50 : 0.1612    precision@5 : 0.0319    precision@10 : 0.0308    precision@20 : 0.0276    precision@50 : 0.0229
+Tue 03 Jun 2025 16:10:45 INFO  Train Discriminator
+Tue 03 Jun 2025 16:11:02 INFO  epoch 16 training [time: 17.25s, train_loss1: 878.9460, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:11:30 INFO  epoch 16 evaluating [time: 28.03s, valid_score: 0.036400]
+Tue 03 Jun 2025 16:11:30 INFO  valid result: 
+ndcg@5 : 0.0364    ndcg@10 : 0.0435    ndcg@20 : 0.0551    ndcg@50 : 0.0801    recall@5 : 0.0254    recall@10 : 0.0458    recall@20 : 0.0812    recall@50 : 0.1616    precision@5 : 0.032    precision@10 : 0.0305    precision@20 : 0.0275    precision@50 : 0.0229
+Tue 03 Jun 2025 16:11:30 INFO  Train Discriminator
+Tue 03 Jun 2025 16:11:47 INFO  epoch 17 training [time: 17.24s, train_loss1: 878.1787, train_loss2: 0.0000]
+Tue 03 Jun 2025 16:12:15 INFO  epoch 17 evaluating [time: 28.03s, valid_score: 0.036300]
+Tue 03 Jun 2025 16:12:15 INFO  valid result: 
+ndcg@5 : 0.0363    ndcg@10 : 0.0438    ndcg@20 : 0.0552    ndcg@50 : 0.0799    recall@5 : 0.0253    recall@10 : 0.0466    recall@20 : 0.0808    recall@50 : 0.16    precision@5 : 0.0316    precision@10 : 0.0306    precision@20 : 0.0276    precision@50 : 0.0228
+Tue 03 Jun 2025 16:12:15 INFO  Finished training, best eval result in epoch 6
+Tue 03 Jun 2025 16:12:15 INFO  Loading pretrain model structure and parameters from saved/FairGo_GCN-ml-1M-pretrain.pth
+Tue 03 Jun 2025 16:17:59 INFO  Loading model structure and parameters from saved/FairGo_GCN-Jun-03-2025_14-55-31.pth
+Tue 03 Jun 2025 16:18:24 INFO  best valid : OrderedDict([('ndcg@5', 0.0821), ('ndcg@10', 0.097), ('ndcg@20', 0.1215), ('ndcg@50', 0.1748), ('recall@5', 0.0556), ('recall@10', 0.1029), ('recall@20', 0.175), ('recall@50', 0.3324), ('precision@5', 0.0726), ('precision@10', 0.0679), ('precision@20', 0.062), ('precision@50', 0.0542)])
+Tue 03 Jun 2025 16:18:24 INFO  test result: {'pretrain-ndcg@5': 0.199, 'pretrain-ndcg@10': 0.1955, 'pretrain-ndcg@20': 0.204, 'pretrain-ndcg@50': 0.2324, 'pretrain-recall@5': 0.1007, 'pretrain-recall@10': 0.1516, 'pretrain-recall@20': 0.2174, 'pretrain-recall@50': 0.3258, 'pretrain-precision@5': 0.1704, 'pretrain-precision@10': 0.1367, 'pretrain-precision@20': 0.1048, 'pretrain-precision@50': 0.0692, 'finetune-ndcg@5': 0.0369, 'finetune-ndcg@10': 0.0423, 'finetune-ndcg@20': 0.054, 'finetune-ndcg@50': 0.0789, 'finetune-recall@5': 0.0252, 'finetune-recall@10': 0.0434, 'finetune-recall@20': 0.078, 'finetune-recall@50': 0.1573, 'finetune-precision@5': 0.0323, 'finetune-precision@10': 0.0297, 'finetune-precision@20': 0.0277, 'finetune-precision@50': 0.0231}

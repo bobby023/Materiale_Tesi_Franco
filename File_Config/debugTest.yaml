@@ -1,0 +1,23 @@
+# test_simple.yaml - Configurazione minima garantita
+dataset: ml-1M
+data_path: dataset/ml-1M
+
+model: BPR  # Modello base molto comune
+learning_rate: 0.001
+embedding_size: 64
+train_batch_size: 2048
+eval_batch_size: 8192
+
+# Metriche essenziali
+metrics: ['NDCG', 'Recall', 'Hit']
+valid_metric: NDCG@10
+topk: [10]
+
+eval_args:
+  split: {'RS': [8, 1, 1]}
+  group_by: user
+  order: RO
+  mode: uni100
+
+epochs: 300
+stopping_step: 10

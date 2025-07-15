@@ -1,0 +1,61 @@
+# FairGo_GCN ORIGINALE
+
+model: FairGo_GCN
+dataset: ml-1M
+
+LABEL_FIELD: label
+RATING_FIELD: rating
+TIME_FIELD: timestamp
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+
+sst_attr_list: ['gender']
+load_col:
+  inter: [user_id, item_id, rating, timestamp]
+  user: [user_id, gender]
+
+# Addestramento standard
+pretrain_model_file_path: null
+load_pretrain_weight: False
+pretrain_epochs: 300
+train_epoch_interval: 2
+stopping_step: 1
+
+# Architettura completa
+embedding_size: 64
+n_layers: 2
+dis_hidden_size_list: [16, 8, 4]
+filter_hidden_size_list: [128, 64]
+activation: leakyrelu
+fair_weight: 0.001
+aggr_method: 'LBA'
+vs_weights: [1, 100]
+
+# GCN
+gcn_n_layers: 2
+hidden_channels: 32
+gcn_dropout: 0.2
+gcn_act: relu
+
+# Ottimizzazione
+train_batch_size: 4096
+eval_batch_size: 8192
+learning_rate: 0.001
+weight_decay: 0.0001
+
+# Device
+device: cuda
+gpu_id: 0
+
+# Metriche complete
+eval_args:
+  split: {'RS':[8,1,1]}
+  group_by: user
+  order: RO
+  mode: uni100
+metrics: ["NDCG", "Recall", "Hit", "MRR", "Precision", "MAP",
+          "DifferentialFairness", "GiniIndex", "PopularityPercentage",
+          "ValueUnfairness", "AbsoluteUnfairness", "UnderUnfairness",
+          "OverUnfairness", "NonParityUnfairness", "ItemCoverage", "ShannonEntropy"]
+valid_metric: NDCG@5
+topk: [5, 10, 20, 50]
